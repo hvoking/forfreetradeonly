@@ -6,7 +6,7 @@ export const providers = [
 		layer: 'road', 
 		label: 'Streets', 
 		type: "LineString", 
-		columnName: "road_class", 
+		columnName: "type", 
 		graphicType: "dots"
 	}
 ]

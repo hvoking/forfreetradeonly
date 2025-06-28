@@ -14,17 +14,17 @@ import { useMarkers } from 'context/markers';
 export const Card = ({ marker }: any) => {
 	const [ activeCharts, setActiveCharts ] = useState(true);
 	
-	const { sharedGeoJsonDataMap } = useMask();
+	const { getGeojsonProperties } = useMask();
 	const { providers } = useMarkers();
 
 	const { id, name, fillColor, fillOpacity } = marker;
 
 	const markerColor = fillColor.replace("b", "ba").replace(")", `, ${fillOpacity})`)
 
-	const linesData = sharedGeoJsonDataMap.value[`lines-source-${id}`];
-	const polygonsData = sharedGeoJsonDataMap.value[`polygons-source-${id}`];
-	const pointsData = sharedGeoJsonDataMap.value[`points-source-${id}`];
-	const clusterData = sharedGeoJsonDataMap.value[`cluster-source-${id}`];
+	const linesData = getGeojsonProperties(`lines-source-${id}`);
+	const polygonsData = getGeojsonProperties(`polygons-source-${id}`);
+	const pointsData = getGeojsonProperties(`points-source-${id}`);
+	const clusterData = getGeojsonProperties(`cluster-source-${id}`);
 
 	const currentProvider = providers.find((item: any) => item.name === name);
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 // App imports
 import { CustomMarker } from './marker';
 import { Boundary } from './boundary';
-import { Layers } from './layers';
+import { SubLayers } from './sublayers';
 
 // Context imports
 import { useIsochroneApi } from 'context/api/isochrone';
@@ -25,9 +25,10 @@ export const Mask = ({ marker }: any) => {
       if (geometryType === 'iso') {
         const data = await fetchIsochrone(marker);
         setBoundary(data.features[0]);
-      } else {
-        const circleBoundary = turf.circle([ lng, lat ], radius, { steps: 32});
-        setBoundary(circleBoundary);
+      } 
+      else {
+        const circle = turf.circle([ lng, lat ], radius, { steps: 32});
+        setBoundary(circle);
       }
     };
     fetchBoundary(marker);
@@ -36,7 +37,7 @@ export const Mask = ({ marker }: any) => {
   return (
     <div key={id}>
       <Boundary marker={marker} boundary={boundary}/>
-      <Layers marker={marker} boundary={boundary}/>
+      <SubLayers marker={marker} boundary={boundary}/>
       <CustomMarker marker={marker}/>
     </div>
   )

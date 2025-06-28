@@ -10,13 +10,13 @@ import { useMarkers } from 'context/markers';
 export const Cursor = () => {
 	const { addPin, currentImage } = useMarkers();
 
-	const customCursorRef = useRef<any>(null);
+	const cursorRef = useRef<any>(null);
 
 	useEffect(() => {
 		const moveCursor = (e: MouseEvent) => {
-		if (customCursorRef.current) {
-			customCursorRef.current.style.left = `${e.pageX - 30}px`;
-			customCursorRef.current.style.top = `${e.pageY - 30}px`;
+			if (cursorRef?.current) {
+				cursorRef.current.style.left = `${e.pageX - 30}px`;
+				cursorRef.current.style.top = `${e.pageY - 30}px`;
 			}
 		};
 		window.addEventListener('mousemove', moveCursor);
@@ -29,7 +29,7 @@ export const Cursor = () => {
 
 	return (
 		<div 
-			ref={customCursorRef} 
+			ref={cursorRef} 
 			className="maps-go-circle maps-custom-cursor"
 		>
 			<div className="map-pin-wrapper">

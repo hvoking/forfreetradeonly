@@ -42,7 +42,8 @@ export const Dots = ({ distribution, colors, sumOfValues }: any) => {
         // Ensure the last row and column are filled
         if (currentRow < numOfRows || currentCol < numOfColumns) {
             const lastItem = Object.entries(distribution).slice(-1)[0];
-            const lastColor = colors[lastItem[0]];
+            // const lastColor = colors[lastItem[0]];
+            const lastColor = 'rgba(0, 255, 0, 1)';
 
             while (currentRow < numOfRows) {
                 const cx = currentCol * dotWidth + dotWidth / 2;
@@ -59,7 +60,7 @@ export const Dots = ({ distribution, colors, sumOfValues }: any) => {
         }
 
         return positions;
-    }, [distribution, colors, sumOfValues, dotWidth, dotHeight, numOfColumns, numOfRows]);
+    }, [ distribution, colors, sumOfValues, dotWidth, dotHeight, numOfColumns, numOfRows ]);
 
 	return (
 		<SVGWrapper>

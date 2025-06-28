@@ -4,7 +4,7 @@ import { Lines } from './lines';
 // Context imports
 import { useMarkers } from 'context/markers';
 
-export const Layers = ({ boundary, marker }: any) => {
+export const SubLayers = ({ boundary, marker }: any) => {
 	const { providers } = useMarkers();
 
 	if (!boundary) return <></>;
@@ -20,4 +20,4 @@ export const Layers = ({ boundary, marker }: any) => {
 	)
 }
 
-Layers.displayName="Layers";
+SubLayers.displayName="SubLayers";

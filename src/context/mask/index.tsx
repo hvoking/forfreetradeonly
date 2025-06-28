@@ -19,10 +19,32 @@ export const MaskProvider = ({children}: any) => {
 	const { mapRef } = useGeo();
 	const { radius } = useMarkers();
 
-	const mapFeatures = signal<any[]>([]);
-	const sharedGeoJsonDataMap = signal({});
-
 	const map = mapRef.current;
+
+	const mapFeatures = signal<any[]>([]);
+	const sharedGeoJsonDataMap = signal(new Map());
+
+	const upsertGeoJsonData = (sourceId: any, geojsonProperties: any) => {
+	  const newMap = new Map(sharedGeoJsonDataMap.value);
+	  newMap.set(sourceId, geojsonProperties);
+	  sharedGeoJsonDataMap.value = newMap;
+	}
+
+	const getGeojsonProperties = (sourceId: any) => {
+      return sharedGeoJsonDataMap.value.get(sourceId);
+    }
+
+    const upsertGeojsonProperties = (sourceId: any, geojsonProperties: any) => {
+      const newMap = new Map(sharedGeoJsonDataMap.value);
+      newMap.set(sourceId, geojsonProperties);
+      sharedGeoJsonDataMap.value = newMap;
+    }
+    
+    const removeGeojsonProperties = (sourceId: any) => {
+      const newMap = new Map(sharedGeoJsonDataMap.value);
+      newMap.delete(sourceId);
+      sharedGeoJsonDataMap.value = newMap;
+    }
 
 	const layerIds = map?.getStyle()
 		.layers
@@ -37,7 +59,6 @@ export const MaskProvider = ({children}: any) => {
 
 	const getGeojson = (boundary: any, source: string, geometryType: string) => {
 	  const fillProperty = fillProperties[geometryType] || 'fill-color';
-
 	  const isLine = geometryType === 'LineString' || geometryType === 'MultiLineString';
 
 	  if (!isLine) {
@@ -45,12 +66,19 @@ export const MaskProvider = ({children}: any) => {
 	    return { type: 'FeatureCollection', features: geomFeatures }
 	  }
 
-	  const features = filterLines(mapFeatures.value, boundary, source, fillProperty);
+	  const lineFeatures: any = filterLines(mapFeatures.value, boundary, source, fillProperty);
+	  const features = lineFeatures.filter((item: any) => Object.keys(item.properties).length !== 0);
 	  return { type: 'FeatureCollection', features };
 	};
 
 	return (
-		<MaskContext.Provider value={{ getGeojson, sharedGeoJsonDataMap }}>
+		<MaskContext.Provider value={{ 
+			getGeojson, 
+			sharedGeoJsonDataMap,
+			upsertGeojsonProperties,
+			getGeojsonProperties,
+			removeGeojsonProperties
+		}}>
 			{children}
 		</MaskContext.Provider>
 	)

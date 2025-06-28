@@ -5,7 +5,7 @@ import { useMask } from 'context/mask';
 import { Source, Layer } from 'react-map-gl/mapbox';
 
 export const Lines = ({ boundary, source, markerId }: any) => {
-	const { getGeojson, sharedGeoJsonDataMap } = useMask();
+	const { getGeojson, upsertGeojsonProperties } = useMask();
 
 	const geoJsonData = getGeojson(boundary, source, 'LineString');
 
@@ -13,21 +13,19 @@ export const Lines = ({ boundary, source, markerId }: any) => {
 
 	const sourceId = `lines-source-${markerId}`;
 
-	const geojsonProperties = geoJsonData.features.map((item: any) => item.properties);
-	
-	sharedGeoJsonDataMap.value = {
-		...sharedGeoJsonDataMap.value, 
-		[sourceId]: geojsonProperties 
-	};
+	const geojsonProperties = geoJsonData.features.map((item: any) => item.properties)
+
+	upsertGeojsonProperties(sourceId, geojsonProperties);
 
 	const layerId = `lines-layer-${markerId}`;
+	
 	const layerStyle: any = {
 	  layerId,
 	  type: "line",
 	  source,
 	  paint: {
 	    'line-width': 2,
-	    'line-color': 'rgba(255, 0, 0, 1)',
+	    'line-color': ['get', 'line-color'],
 	  },
 	};
 
