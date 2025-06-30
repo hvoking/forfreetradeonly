@@ -34,17 +34,17 @@ export const MaskProvider = ({children}: any) => {
       return sharedGeoJsonDataMap.value.get(sourceId);
     }
 
-    const upsertGeojsonProperties = (sourceId: any, geojsonProperties: any) => {
-      const newMap = new Map(sharedGeoJsonDataMap.value);
-      newMap.set(sourceId, geojsonProperties);
-      sharedGeoJsonDataMap.value = newMap;
-    }
-    
-    const removeGeojsonProperties = (sourceId: any) => {
-      const newMap = new Map(sharedGeoJsonDataMap.value);
-      newMap.delete(sourceId);
-      sharedGeoJsonDataMap.value = newMap;
-    }
+  const upsertGeojsonProperties = (sourceId: any, geojsonProperties: any) => {
+    const newMap = new Map(sharedGeoJsonDataMap.value);
+    newMap.set(sourceId, geojsonProperties);
+    sharedGeoJsonDataMap.value = newMap;
+  }
+  
+  const removeGeojsonProperties = (sourceId: any) => {
+    const newMap = new Map(sharedGeoJsonDataMap.value);
+    newMap.delete(sourceId);
+    sharedGeoJsonDataMap.value = newMap;
+  }
 
 	const layerIds = map?.getStyle()
 		.layers

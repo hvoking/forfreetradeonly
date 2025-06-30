@@ -4,6 +4,7 @@ import { Nav } from './nav';
 import { Sections } from './sections';
 import { Location } from './location';
 import { Cursor } from './cursor';
+import { Basemaps } from './basemaps';
 import './styles.scss';
 
 export const Wrapper = ({ children }: any) => {
@@ -16,6 +17,7 @@ export const Wrapper = ({ children }: any) => {
         <Sections/>
         <Location/>
         <Cursor/>
+        <Basemaps/>
       </div>
     </div>
   );

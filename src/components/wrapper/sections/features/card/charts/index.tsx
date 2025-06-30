@@ -4,7 +4,6 @@ import { useState } from 'react';
 // App imports
 import { Gauge } from './gauge';
 import { Dots } from './dots';
-import { Lines } from './lines';
 import { Bars } from './bars';
 import { processData } from './data';
 import './styles.scss';
@@ -18,12 +17,12 @@ export const Charts = ({ data, name, colorLabel, backgroundColor }: any) => {
 	const { distribution, colors } = processData(data, name, colorLabel);
 	const sumOfValues = d3.sum(Object.values(distribution));
 
-	const graphicTypeArray = ["dots", "gauge", "lines"];
+	const graphicTypeArray = ["dots", "gauge"];
 	const graphicType = graphicTypeArray[graphictTypeIndex];
 
 	const onClick = () => {
 		setGraphicTypeIndex((prev: any) => {
-			if (prev < 2) {
+			if (prev < 1) {
 				return prev + 1
 			}
 			else {
@@ -37,7 +36,6 @@ export const Charts = ({ data, name, colorLabel, backgroundColor }: any) => {
 				<Bars distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>
 				{graphicType === "gauge" && <Gauge distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>}
 				{graphicType === "dots" && <Dots distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>}
-				{graphicType === "lines" && <Lines distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>}
 			</div>
 	)
 }

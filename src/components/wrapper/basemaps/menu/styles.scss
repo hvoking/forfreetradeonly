@@ -1,0 +1,45 @@
+@use 'variables' as *;
+
+.map-layers {
+  position: absolute;
+  right: 45px;
+  bottom: 45px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: $box-shadow;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  cursor: pointer;
+  user-select: none;
+  z-index: 4;
+  div {
+    padding: 5px;
+  }
+}
+.layers-svg-group {
+  fill: rgba(255, 255, 255, 1);
+  stroke: rgba(0, 0, 0, 1); 
+  stroke-line-join: round;
+}
+.basemap-tooltip {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: calc(100% + 10px);
+  background-color: $primary;
+  color: $text-light;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
+}
+@media screen and (max-width: 768px) {
+  .map-layers {
+    right: 15px;
+    bottom: 95px;
+  }
+  .basemap-tooltip {
+    display: none;
+  }
+}

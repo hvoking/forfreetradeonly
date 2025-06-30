@@ -19,16 +19,6 @@ export const MarkersProvider = ({children}: any) => {
 	const [ radius, setRadius ] = useState(0.5);
 	const [ addPin, setAddPin ] = useState(false);
 
-	const updateMarkers = (markerId: string, property: string, value: number) => {
-	    setMarkers((prev: any) => ({
-	        ...prev,
-	        [markerId]: {
-	            ...prev[markerId],
-	            [property]: value,
-	        },
-	    }));
-	};
-
 	const colorPalette = [
 	    "rgba(245, 246, 248, 1)",
 	    "rgba(255, 249, 177, 1)",
@@ -39,6 +29,47 @@ export const MarkersProvider = ({children}: any) => {
 	    "rgba(166, 204, 245, 1)",
 	    "rgba(108, 216, 250, 1)",
 	];
+
+	const getId = (markers: any) => {
+	    const ids = Object.keys(markers).map(Number);
+	    const maxId = ids.length ? Math.max(...ids) : 0;
+	    return maxId + 1;
+	};
+
+    const addAgent = (event: any) => {
+    	if (addPin === true) {
+			const newMarker = {
+				id: getId(markers),
+				center: event.lngLat,
+				image: currentImage,
+				name: currentName,
+				radius: 0.5,
+				contoursMinutes: 10,
+				fillColor: "rgba(166, 204, 245, 0.8)",
+				fillOpacity: 0.1,
+				stroke: "rgba(166, 204, 245, 1)",
+				strokeWidth: 4,
+				strokeOpacity: 0.8,
+				routingProfile: "walking",
+				geometryType: "circle",
+			};
+			setMarkers((prev: any) => ({ 
+				...prev, 
+				[newMarker.id]: newMarker 
+			}));
+			setAddPin(false);
+		}
+	};
+
+	const updateMarkers = (markerId: string, property: string, value: number) => {
+	    setMarkers((prev: any) => ({
+	        ...prev,
+	        [markerId]: {
+	            ...prev[markerId],
+	            [property]: value,
+	        },
+	    }));
+	};
 
 	const rejectMarker = (event: any, markerId: any) => {
 	    event.stopPropagation();
@@ -60,7 +91,7 @@ export const MarkersProvider = ({children}: any) => {
 	return (
 		<MarkersContext.Provider value={{
 			markers, setMarkers,
-			updateMarkers,
+			addAgent, rejectMarker, updateMarkers,
 			currentMarkerId, setCurrentMarkerId,
 			currentImage, setCurrentImage,
 			currentName, setCurrentName,
@@ -68,7 +99,6 @@ export const MarkersProvider = ({children}: any) => {
 			radius, setRadius,
 			addPin, setAddPin,
 			providers, colorPalette,
-			rejectMarker
 		}}>
 			{children}
 		</MarkersContext.Provider>

@@ -7,7 +7,6 @@ export const Nav = () => {
 		<div className="nav-wrapper">
             <Section section={"agent"} title={"Add Agent"} />
             <Section section={"features"} title={"Features"} />
-            <Section section={"basemaps"} title={"Basemaps"} />
         </div>
 	)
 }

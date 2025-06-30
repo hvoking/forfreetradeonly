@@ -13,7 +13,7 @@ export const GeoProvider = ({children}: any) => {
 
 	const [ placeId, setPlaceId ] = useState<any>(null);
 	const [ viewport, setViewport ] = useState(Locations.rotterdam);
-	const [ mapStyle, setMapStyle ] = useState("mapbox://styles/hvoking/cm6k7wwbu00cw01ryeqdb9fik");
+	const [ mapStyle, setMapStyle ] = useState("mapbox://styles/mapbox/light-v11");
 
 	useEffect(() => {
 		const { longitude, latitude } = viewport;
