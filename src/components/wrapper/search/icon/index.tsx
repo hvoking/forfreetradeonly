@@ -1,9 +1,6 @@
 // App imports
 import './styles.scss';
 
-// Context imports
-import { useSearch } from 'context/search';
-
 export const SearchIcon = () => {
 	const currentImage = "/static/icons/search.svg";
 

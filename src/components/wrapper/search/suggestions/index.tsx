@@ -2,7 +2,7 @@
 import './styles.scss';
 
 // Context imports
-import { useSearch } from 'context/search';
+import { useSearch } from 'context/events/search';
 
 export const Suggestions = () => {
 	const { suggestions, suggestionsActive, suggestionIndex, setSuggestionIndex, handleClick } = useSearch();

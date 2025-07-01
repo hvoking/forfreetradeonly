@@ -1,6 +1,3 @@
-// React imports
-import { useState } from 'react';
-
 // App imports
 import './styles.scss';
 
@@ -12,8 +9,11 @@ import { GeolocateControl } from 'react-map-gl/mapbox';
 
 export const Geolocate = () => {
 	const { setViewport } = useGeo();
-
-	const [ activeTooltip, setActiveTooltip ] = useState<any>(null);
+	
+	const onGeolocate = (e: any) => {
+		const { longitude, latitude } = e.coords;
+		setViewport({ longitude, latitude })
+	}
 
 	return (
 		<GeolocateControl
@@ -21,10 +21,7 @@ export const Geolocate = () => {
 			showUserLocation={false}
 			positionOptions={{enableHighAccuracy: true}}
 			position="bottom-right"
-			onGeolocate={(e: any) => {
-				const { longitude, latitude } = e.coords;
-				setViewport({ longitude, latitude })
-			}}
+			onGeolocate={onGeolocate}
 		/>
 	)
 }

@@ -1,5 +1,5 @@
 // Context imports
-import { useSearch } from 'context/search';
+import { useSearch } from 'context/events/search';
 
 export const SearchBar = () => {
 	const { inputRef, searchText, handleChange, handleKeyDown } = useSearch();
