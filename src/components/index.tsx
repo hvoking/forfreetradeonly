@@ -1,12 +1,14 @@
 // App imports
+import { Sidebar } from './sidebar'; 
 import { Wrapper } from './wrapper';
-import { MapContainer } from './maps';
+import './styles.scss';
 
 export const Main = () => {
   return (
-  <Wrapper>
-    <MapContainer/>
-  </Wrapper>
+    <div className="main"> 
+      <Sidebar/>
+      <Wrapper/>
+    </div>
   );
 };
 

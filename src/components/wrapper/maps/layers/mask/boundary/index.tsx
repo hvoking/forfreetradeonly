@@ -1,6 +1,5 @@
 // App imports
 import { getStrokeLayer } from './stroke';
-import { getEraserLayer } from './eraser';
 import { getFillLayer } from './fill';
 
 // Third party imports
@@ -15,13 +14,11 @@ export const Boundary = ({ marker, boundary }: any) => {
 
   const fillId = `boundary-fill-${id}`;
   const borderId = `boundary-stroke-${id}`;
-  const eraserId = `boundary-eraser-${id}`;
 
-  const eraserLayer = getEraserLayer(eraserId, sourceId);
   const fillLayer = getFillLayer(fillId, sourceId, fillColor, fillOpacity);
   const borderLayer = getStrokeLayer(borderId, sourceId, stroke, strokeOpacity, strokeWidth);
 
-  const layers: any = [ eraserLayer, fillLayer, borderLayer ]
+  const layers: any = [ fillLayer, borderLayer ]
     
     return (
       <Source 

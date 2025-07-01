@@ -29,8 +29,12 @@ export const GoogleDetailsApiProvider = ({children}: any) => {
 
 	useEffect(() => {
 		if (googleDetailsData) {
-			const { lng, lat } = googleDetailsData.result.geometry.location;
-			setViewport((prev: any) => ({...prev, longitude: lng, latitude: lat}));
+			const { lng, lat } = googleDetailsData.geometry.location;
+			setViewport((prev: any) => ({
+				...prev, 
+				longitude: lng, 
+				latitude: lat
+			}));
 		}
 	}, [ googleDetailsData, setViewport ])
 

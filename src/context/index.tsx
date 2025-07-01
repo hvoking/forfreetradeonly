@@ -5,6 +5,7 @@ import { ApiProvider } from './api';
 import { DraggableProvider } from './draggable';
 import { BoundaryProvider } from './boundary';
 import { SizesProvider } from './sizes';
+import { SearchProvider } from './search';
 
 export const MainProvider = ({children}: any) => {
   return (
@@ -12,6 +13,7 @@ export const MainProvider = ({children}: any) => {
     <MarkersProvider>
     <MaskProvider>
     <ApiProvider>
+    <SearchProvider>
     <DraggableProvider>
     <BoundaryProvider>
     <SizesProvider>
@@ -19,6 +21,7 @@ export const MainProvider = ({children}: any) => {
     </SizesProvider>
     </BoundaryProvider>
     </DraggableProvider>
+    </SearchProvider>
     </ApiProvider>
     </MaskProvider>
     </MarkersProvider>

@@ -8,7 +8,7 @@
 	grid-area: mw;
 	position: relative;
 }
-.main-wrapper {
+.main {
 	display: grid; 
 	grid-template-columns: min-content auto;
 	grid-template-rows: min-content auto;
@@ -17,7 +17,7 @@
 		"nw mw"
 }
 @media screen and (max-width: 768px) {
-	.main-wrapper {
+	.main {
 		grid-template-columns: auto;
 		grid-template-rows: min-content auto min-content;
 		grid-template-areas: 

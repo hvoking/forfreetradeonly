@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Layers } from './layers';
 import { Tooltip } from './tooltip';
 import { Chat } from './chat';
+import { Geolocate } from './geolocate';
 
 // Context imports
 import { useGeo } from 'context/geo';
@@ -14,7 +15,7 @@ import { useBoundary } from 'context/boundary';
 import { Map } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-export const MapContainer = () => {
+export const Maps = () => {
 	const { viewport, mapRef, mapStyle } = useGeo();
 	const { onContextMenu, onClick } = useBoundary();
 	
@@ -35,10 +36,11 @@ export const MapContainer = () => {
 					<Layers/>
 					<Tooltip/>
 					<Chat/>
+					<Geolocate/>
 				</>
 			}
 		</Map>
 	)
 }
 
-MapContainer.displayName="MapContainer";
+Maps.displayName="Maps";
