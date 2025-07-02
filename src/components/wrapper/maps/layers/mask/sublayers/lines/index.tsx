@@ -1,11 +1,13 @@
 // Context imports
 import { useMask } from 'context/mask';
+import { useSharedData } from 'context/shared';
 
 // Third-party imports
 import { Source, Layer } from 'react-map-gl/mapbox';
 
 export const Lines = ({ boundary, source, markerId }: any) => {
-	const { getGeojson, upsertGeojsonProperties } = useMask();
+	const { getGeojson } = useMask();
+	const { upsertGeojsonProperties } = useSharedData();
 
 	const geoJsonData = getGeojson(boundary, source, 'LineString');
 

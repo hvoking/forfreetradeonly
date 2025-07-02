@@ -8,13 +8,13 @@ import { Footer } from './footer';
 import './styles.scss';
 
 // Context imports
-import { useMask } from 'context/mask';
+import { useSharedData } from 'context/shared';
 import { useMarkers } from 'context/markers';
 
 export const Card = ({ marker }: any) => {
 	const [ activeCharts, setActiveCharts ] = useState(true);
 	
-	const { getGeojsonProperties } = useMask();
+	const { getGeojsonProperties } = useSharedData();
 	const { providers } = useMarkers();
 
 	const { id, name, fillColor, fillOpacity } = marker;

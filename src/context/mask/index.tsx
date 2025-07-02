@@ -22,34 +22,17 @@ export const MaskProvider = ({children}: any) => {
 	const map = mapRef.current;
 
 	const mapFeatures = signal<any[]>([]);
-	const sharedGeoJsonDataMap = signal(new Map());
-
-	const getGeojsonProperties = (sourceId: any) => {
-      return sharedGeoJsonDataMap.value.get(sourceId);
-    }
-
-  const upsertGeojsonProperties = (sourceId: any, geojsonProperties: any) => {
-    const newMap = new Map(sharedGeoJsonDataMap.value);
-    newMap.set(sourceId, geojsonProperties);
-    sharedGeoJsonDataMap.value = newMap;
-  }
-  
-  const removeGeojsonProperties = (sourceId: any) => {
-    const newMap = new Map(sharedGeoJsonDataMap.value);
-    newMap.delete(sourceId);
-    sharedGeoJsonDataMap.value = newMap;
-  }
-
-  const getLayersIdsBySource = (sourceLayer: string) => {
+	
+  const getLayersBySource = (sourceLayer: string) => {
   	map?.getStyle()
 			.layers
 			.filter((layer: any) => layer['source-layer'] === sourceLayer)
 			.map((layer: any) => layer.id);
   }
 
-	const layersIds = getLayersIdsBySource('road');
+	const layers = getLayersBySource('road');
 
-	mapFeatures.value = map?.queryRenderedFeatures({ layers: layersIds });
+	mapFeatures.value = map?.queryRenderedFeatures({ layers });
 
 	const getGeojson = (boundary: any, source: string, geometryType: string) => {
 	  const fillProperty = fillProperties[geometryType] || 'fill-color';
@@ -67,11 +50,7 @@ export const MaskProvider = ({children}: any) => {
 
 	return (
 		<MaskContext.Provider value={{ 
-			getGeojson, 
-			sharedGeoJsonDataMap,
-			upsertGeojsonProperties,
-			getGeojsonProperties,
-			removeGeojsonProperties
+			getGeojson
 		}}>
 			{children}
 		</MaskContext.Provider>
