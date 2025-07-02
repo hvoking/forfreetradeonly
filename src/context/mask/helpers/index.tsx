@@ -65,56 +65,55 @@ const getColor = (layerType: any, layerPaint: any, property: string) => {
   return processedPaint;
 };
 
+const getLineFeatures = (geometry: any, properties: any) => {
+  if (geometry.type === 'LineString') {
+    return [{
+      type: 'Feature',
+      geometry,
+      properties,
+    }];
+  } 
+  else if (geometry.type === 'MultiLineString') {
+    return geometry.coordinates.map((coordinates: any) => ({
+      type: 'Feature',
+      geometry: { type: 'LineString', coordinates },
+      properties,
+    }));
+  }
+  return [];
+};
+
+const getFeaturesInside = (lineFeatures: any[], boundary: any) => {
+  return lineFeatures.flatMap((line) => {
+    if (turf.booleanWithin(line, boundary)) {
+      return [line];
+    }
+    if (turf.booleanIntersects(line, boundary)) {
+      const split = turf.lineSplit(line, boundary);
+      return split.features.filter((feature) =>
+        turf.booleanWithin(feature, boundary)
+      );
+    }
+    return [];
+  });
+};
+
 export const filterLines = (mapFeatures: any[], boundary: any, source: string, fillProperty: any) => {
-    const lines = mapFeatures?.reduce((total: any[], item: any) => {
-      const { geometry, layer, source: src, properties: itemProperties } = item;
+  if (!mapFeatures) return [];
 
-      if (src !== source) return total;
+  return mapFeatures.flatMap((item: any) => {
+    const { geometry, layer, source: src, properties: itemProperties } = item;
 
-      const color = getColor(itemProperties.type, layer.paint, fillProperty);
+    if (src !== source) return [];
 
-      const properties = { ...color, ...itemProperties };
+    const color = getColor(itemProperties.type, layer.paint, fillProperty);
+    const properties = { ...color, ...itemProperties };
 
-      let lineFeatures: any[] = [];
-
-      if (geometry.type === 'LineString') {
-        lineFeatures.push({
-          type: 'Feature',
-          geometry,
-          properties,
-        });
-      } 
-      else if (geometry.type === 'MultiLineString') {
-        for (const coords of geometry.coordinates) {
-          lineFeatures.push({
-            type: 'Feature',
-            geometry: {
-              type: 'LineString',
-              coordinates: coords,
-            },
-            properties,
-          });
-        }
-      } else {
-        return total;
-      }
-
-      for (const line of lineFeatures) {
-        if (turf.booleanWithin(line, boundary)) {
-          total.push(line);
-        } else if (turf.booleanIntersects(line, boundary)) {
-          const split = turf.lineSplit(line, boundary);
-          for (const feature of split.features) {
-            if (turf.booleanWithin(feature, boundary)) {
-              total.push(feature);
-            }
-          }
-        }
-      }
-    return total;
-    }, []);
-    return lines;
-  };
+    const lineFeatures = getLineFeatures(geometry, properties);
+    const featuresInside = getFeaturesInside(lineFeatures, boundary);
+    return featuresInside;
+  });
+};
 
 export const filterGeometries = (features: any[], boundary: any, source: string) =>
   features.filter(({ source: src, geometry }) =>
