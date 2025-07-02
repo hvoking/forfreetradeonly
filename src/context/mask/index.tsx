@@ -24,12 +24,6 @@ export const MaskProvider = ({children}: any) => {
 	const mapFeatures = signal<any[]>([]);
 	const sharedGeoJsonDataMap = signal(new Map());
 
-	const upsertGeoJsonData = (sourceId: any, geojsonProperties: any) => {
-	  const newMap = new Map(sharedGeoJsonDataMap.value);
-	  newMap.set(sourceId, geojsonProperties);
-	  sharedGeoJsonDataMap.value = newMap;
-	}
-
 	const getGeojsonProperties = (sourceId: any) => {
       return sharedGeoJsonDataMap.value.get(sourceId);
     }
@@ -46,16 +40,16 @@ export const MaskProvider = ({children}: any) => {
     sharedGeoJsonDataMap.value = newMap;
   }
 
-	const layerIds = map?.getStyle()
-		.layers
-		.filter((layer: any) =>{
-			return layer.source === 'composite' && 
-			layer['source-layer'] === 'road';
+  const getLayersIdsBySource = (sourceLayer: string) => {
+  	map?.getStyle()
+			.layers
+			.filter((layer: any) => layer['source-layer'] === sourceLayer)
+			.map((layer: any) => layer.id);
+  }
 
-		})
-		.map((layer: any) => layer.id);
+	const layersIds = getLayersIdsBySource('road');
 
-	mapFeatures.value = map?.queryRenderedFeatures({ layers: layerIds });
+	mapFeatures.value = map?.queryRenderedFeatures({ layers: layersIds });
 
 	const getGeojson = (boundary: any, source: string, geometryType: string) => {
 	  const fillProperty = fillProperties[geometryType] || 'fill-color';

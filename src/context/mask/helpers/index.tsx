@@ -90,9 +90,12 @@ const getFeaturesInside = (lineFeatures: any[], boundary: any) => {
     }
     if (turf.booleanIntersects(line, boundary)) {
       const split = turf.lineSplit(line, boundary);
-      return split.features.filter((feature) =>
-        turf.booleanWithin(feature, boundary)
-      );
+      return split.features
+        .filter((feature) => turf.booleanWithin(feature, boundary))
+        .map((feature) => ({
+          ...feature,
+          properties: line.properties,
+        }));
     }
     return [];
   });
