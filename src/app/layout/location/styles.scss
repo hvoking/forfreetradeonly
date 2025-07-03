@@ -1,0 +1,16 @@
+@import 'global';
+
+.map-location {
+  position: absolute;
+  font-style: italic;
+  font-size: 1.4em;
+  font-weight: 700;
+  right: 15px;
+  top: 25px;
+  background-color: $card-bg;
+  padding: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+}

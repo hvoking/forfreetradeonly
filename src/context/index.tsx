@@ -4,14 +4,14 @@ import { GeoProvider } from './geo';
 import { ApiProvider } from './api';
 import { EventsProvider } from './events';
 import { SizesProvider } from './sizes';
-import { SharedDataProvider } from './shared';
+import { DataProvider } from './data';
 
-export const MainProvider = ({children}: any) => {
+export const ContextProvider = ({children}: any) => {
   return (
     <GeoProvider>
     <MarkersProvider>
     <MaskProvider>
-    <SharedDataProvider>
+    <DataProvider>
     <ApiProvider>
     <EventsProvider>
     <SizesProvider>
@@ -19,11 +19,11 @@ export const MainProvider = ({children}: any) => {
     </SizesProvider>
     </EventsProvider>
     </ApiProvider>
-    </SharedDataProvider>
+    </DataProvider>
     </MaskProvider>
     </MarkersProvider>
     </GeoProvider>
   )
 }
 
-MainProvider.displayName="MainProvider";
+ContextProvider.displayName="ContextProvider";

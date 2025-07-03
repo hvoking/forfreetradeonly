@@ -20,9 +20,19 @@ export const GoogleDetailsApiProvider = ({children}: any) => {
 	    	?place_id=${placeId}
 	    `;
 	    const url = tempUrl.replace(/\s/g, '');
-	    const res = await fetch(url);
-	    const receivedData = await res.json();
-	    setGoogleDetailsData(receivedData)
+	    try {
+	    	const res = await fetch(url);
+			if (!res.ok) {
+	  			throw new Error(`HTTP error! status: ${res.status}`);
+	  		}
+	    	const receivedData = await res.json();
+	    	setGoogleDetailsData(receivedData)	
+	    }
+	    catch (error) {
+	    	console.error("Error fetching address:", error);
+	    	return null;
+	    }
+	    
 	  }
 	  placeId && fetchData();
 	}, [ placeId ]);

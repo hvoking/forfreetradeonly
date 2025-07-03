@@ -1,0 +1,41 @@
+@import 'global';
+
+.search-wrapper {
+  position: absolute;
+  right: 50%;
+  top: 20px;
+  transform: translateX(50%);
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  box-shadow: $box-shadow; 
+  background-color: $light-bg;
+  border-radius: 10px;
+  z-index: 3;
+}
+.search-input {
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 5px;
+  width: 300px;
+}
+.search-input::placeholder {
+  opacity: 0.6;
+}
+.search-input:focus {
+  outline: none;
+}
+// mobile-style
+@media screen and (max-width: 768px) {
+  .search-wrapper {
+    top: 65px;
+    right: 15px;
+    transform: none;
+    width: calc(100% - 40px);
+  }
+  .search-input {
+      width: 100%;
+    }
+}

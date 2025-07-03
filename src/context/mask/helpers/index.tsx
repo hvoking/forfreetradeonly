@@ -49,7 +49,7 @@ const roadColors: any = {
   "rail": 'rgba(255, 0, 0, 1)',
   "pier": 'rgba(255, 0, 0, 1)',
   "canal": 'rgba(255, 0, 0, 1)',
-  "river": 'rgba(255, 0, 0, 1)',
+  "river": 'rgba(0, 0, 255, 1)',
   "ditch": 'rgba(255, 0, 0, 1)',
   "drain": 'rgba(255, 0, 0, 1)',
   "stream": 'rgba(255, 0, 0, 1)',
