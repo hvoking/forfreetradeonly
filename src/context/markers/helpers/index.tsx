@@ -67,11 +67,7 @@ const getColor = (layerType: any, layerPaint: any, property: string) => {
 
 const getLineFeatures = (geometry: any, properties: any) => {
   if (geometry.type === 'LineString') {
-    return [{
-      type: 'Feature',
-      geometry,
-      properties,
-    }];
+    return [{ type: 'Feature', geometry, properties }];
   } 
   else if (geometry.type === 'MultiLineString') {
     return geometry.coordinates.map((coordinates: any) => ({
@@ -83,19 +79,16 @@ const getLineFeatures = (geometry: any, properties: any) => {
   return [];
 };
 
-const getFeaturesInside = (lineFeatures: any[], boundary: any) => {
+const getLinesInside = (lineFeatures: any[], boundary: any) => {
   return lineFeatures.flatMap((line) => {
     if (turf.booleanWithin(line, boundary)) {
-      return [line];
+      return [ line ];
     }
     if (turf.booleanIntersects(line, boundary)) {
       const split = turf.lineSplit(line, boundary);
       return split.features
         .filter((feature) => turf.booleanWithin(feature, boundary))
-        .map((feature) => ({
-          ...feature,
-          properties: line.properties,
-        }));
+        .map((feature) => ({ ...feature, properties: line.properties }));
     }
     return [];
   });
@@ -113,7 +106,7 @@ export const filterLines = (mapFeatures: any[], boundary: any, source: string, f
     const properties = { ...color, ...itemProperties };
 
     const lineFeatures = getLineFeatures(geometry, properties);
-    const featuresInside = getFeaturesInside(lineFeatures, boundary);
+    const featuresInside = getLinesInside(lineFeatures, boundary);
     return featuresInside;
   });
 };

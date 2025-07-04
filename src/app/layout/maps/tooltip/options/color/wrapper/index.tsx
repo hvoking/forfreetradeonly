@@ -30,6 +30,7 @@ export const Wrapper = ({ markerId, innerWidth, innerHeight, colorScale, markerP
             {Array.from({ length: numOptions }, (_, index) => {
                 const row = Math.floor(index / cols);
                 const col = index % cols;
+                
                 const x = col * rectWidth + rectWidth / 2;
                 const y = row * rectHeight + rectHeight / 2;
 

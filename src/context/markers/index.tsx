@@ -2,44 +2,39 @@
 import { useState, useEffect, useContext, createContext } from 'react';
 
 // App imports
-import { providers } from './data';
+import { providers, colorPalette } from './data';
+import { fillProperties, filterGeometries, filterLines } from './helpers';
+
+// Context imports
+import { useGeo } from 'context/geo';
 
 const MarkersContext: React.Context<any> = createContext(null);
 
 export const useMarkers = () => useContext(MarkersContext)
 
 export const MarkersProvider = ({children}: any) => {
+	const { mapRef } = useGeo();
+	const map = mapRef.current;
+
 	const [ markers, setMarkers ] = useState<any>({});
 	const [ currentMarkerId, setCurrentMarkerId ] = useState<any>(null);
 	const [ currentImage, setCurrentImage ] = useState<any>(null);
 	const [ currentName, setCurrentName ] = useState<any>(null);
-
 	const [ activePage, setActivePage ] = useState<any>(null);
 
 	const [ radius, setRadius ] = useState(0.5);
 	const [ addPin, setAddPin ] = useState(false);
 
-	const colorPalette = [
-	    "rgba(245, 246, 248, 1)",
-	    "rgba(255, 249, 177, 1)",
-	    "rgba(244, 208, 62, 1)", 
-	    "rgba(230, 127, 34, 1)",
-	    "rgba(241, 149, 138, 1)",
-	    "rgba(88, 214, 141, 1)",
-	    "rgba(166, 204, 245, 1)",
-	    "rgba(108, 216, 250, 1)",
-	];
-
-	const getId = (markers: any) => {
+	const getMarkerId = (markers: any) => {
 	    const ids = Object.keys(markers).map(Number);
 	    const maxId = ids.length ? Math.max(...ids) : 0;
 	    return maxId + 1;
 	};
 
-    const addAgent = (event: any) => {
+    const addMarker = (event: any) => {
     	if (addPin === true) {
 			const newMarker = {
-				id: getId(markers),
+				id: getMarkerId(markers),
 				center: event.lngLat,
 				image: currentImage,
 				name: currentName,
@@ -79,6 +74,29 @@ export const MarkersProvider = ({children}: any) => {
 	    });
 	}
 
+	const getLayersBySource = (sourceLayer: string) => {
+		return map?.getStyle()
+			.layers
+			.filter((layer: any) => layer['source-layer'] === sourceLayer)
+			.map((layer: any) => layer.id);
+	}
+
+	const getGeojson = (boundary: any, source: string, geometryType: string) => {
+		const layers = getLayersBySource('road');
+		const currentFeatures = map?.queryRenderedFeatures({ layers });
+		const fillProperty = fillProperties[geometryType] || 'fill-color';
+		const isLine = geometryType === 'LineString' || geometryType === 'MultiLineString';
+
+		if (!isLine) {
+			const geomFeatures = filterGeometries(currentFeatures, boundary, source);
+			return { type: 'FeatureCollection', features: geomFeatures }
+		}
+
+		const lineFeatures: any = filterLines(currentFeatures, boundary, source, fillProperty);
+		const features = lineFeatures.filter((item: any) => Object.keys(item.properties).length !== 0);
+		return { type: 'FeatureCollection', features };
+	};
+
 	useEffect(() => {
 		const handleKeyDown = (event: any) => event.keyCode === 27 && setAddPin(false);
 		window.addEventListener('keydown', handleKeyDown);
@@ -91,14 +109,15 @@ export const MarkersProvider = ({children}: any) => {
 	return (
 		<MarkersContext.Provider value={{
 			markers, setMarkers,
-			addAgent, rejectMarker, updateMarkers,
 			currentMarkerId, setCurrentMarkerId,
+			addMarker, rejectMarker, updateMarkers,
 			currentImage, setCurrentImage,
 			currentName, setCurrentName,
 			activePage, setActivePage,
 			radius, setRadius,
 			addPin, setAddPin,
 			providers, colorPalette,
+			getGeojson
 		}}>
 			{children}
 		</MarkersContext.Provider>

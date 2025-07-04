@@ -8,14 +8,14 @@ import { Footer } from './footer';
 import './styles.scss';
 
 // Context imports
-import { useData } from 'context/data';
 import { useMarkers } from 'context/markers';
+import { useGeojson } from 'context/geojson';
 
 export const Card = ({ marker }: any) => {
 	const [ activeCharts, setActiveCharts ] = useState(true);
 	
-	const { getGeojsonProperties } = useData();
 	const { providers } = useMarkers();
+	const { getGeojsonProperties } = useGeojson();
 
 	const { id, name, fillColor, fillOpacity } = marker;
 
@@ -47,7 +47,11 @@ export const Card = ({ marker }: any) => {
 
 	return (
 		<div key={id} className="agent-card">
-		  	<Header marker={marker} activeCharts={activeCharts} setActiveCharts={setActiveCharts}/>
+		  	<Header 
+		  		marker={marker} 
+		  		activeCharts={activeCharts} 
+		  		setActiveCharts={setActiveCharts}
+		  	/>
 			{activeCharts && 
 				<Charts 
 					data={currentData} 

@@ -6,7 +6,7 @@ import { processData } from './data';
 import './styles.scss';
 
 // Context imports
-import { useData } from 'context/data';
+import { useMarkers } from 'context/markers';
 import { useReverseGeocodingApi } from 'context/api/google/reverse';
 
 const prefix: any = {
@@ -24,7 +24,7 @@ const color: any = {
 export const Input = ({ markerId, currentMarker, providers, setRequestData, updateResponse, setRequestText }: any) => {
 	const [ searchText, setSearchText ] = useState<any>(null);
 
-	const { sharedGeoJsonDataMap } = useData();
+	const { sharedGeoJsonDataMap } = useMarkers();
 	const { currentAddress } = useReverseGeocodingApi();
 
 	const handleChange = (e: any) => {

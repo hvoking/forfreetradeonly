@@ -1,5 +1,4 @@
 import { GaugeSizesProvider } from './gauge';
-import { BarsSizesProvider } from './bars';
 import { DotsSizesProvider } from './dots';
 import { RadiusSizesProvider } from './radius';
 import { SliderSizesProvider } from './slider';
@@ -7,7 +6,6 @@ import { SliderSizesProvider } from './slider';
 export const SizesProvider = ({ children }: any) => {
 	return (
 		<GaugeSizesProvider>
-		<BarsSizesProvider>
 		<DotsSizesProvider>
 		<RadiusSizesProvider>
 		<SliderSizesProvider>
@@ -15,7 +13,6 @@ export const SizesProvider = ({ children }: any) => {
 		</SliderSizesProvider>
 		</RadiusSizesProvider>
 		</DotsSizesProvider>
-		</BarsSizesProvider>
 		</GaugeSizesProvider>
 	)
 }

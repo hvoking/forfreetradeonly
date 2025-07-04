@@ -11,7 +11,7 @@ export const useBoundary = () => useContext(BoundaryContext)
 
 export const BoundaryProvider = ({children}: any) => {
 	const { mapRef } = useGeo();
-	const { markers, setCurrentMarkerId, addPin, addAgent } = useMarkers();
+	const { markers, setCurrentMarkerId, addPin, addMarker } = useMarkers();
 
 	const [ optionsCoords, setOptionsCoords ] = useState<any>(null);
 	const [ messageCoords, setMessageCoords ] = useState<any>(null);
@@ -72,7 +72,7 @@ export const BoundaryProvider = ({children}: any) => {
 	const onClick = (event: any) => {
 		setOptionsCoords(null);
 		addChatbot(event);
-		addAgent(event);
+		addMarker(event);
 	}
 
 	return (

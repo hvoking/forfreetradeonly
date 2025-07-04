@@ -1,13 +1,13 @@
 // Context imports
-import { useMask } from 'context/mask';
-import { useData } from 'context/data';
+import { useMarkers } from 'context/markers';
+import { useGeojson } from 'context/geojson';
 
 // Third-party imports
 import { Source, Layer } from 'react-map-gl/mapbox';
 
 export const Lines = ({ boundary, source, markerId }: any) => {
-	const { getGeojson } = useMask();
-	const { upsertGeojsonProperties } = useData();
+	const { upsertGeojsonProperties } = useGeojson();
+	const { getGeojson } = useMarkers();
 
 	const geoJsonData = getGeojson(boundary, source, 'LineString');
 
