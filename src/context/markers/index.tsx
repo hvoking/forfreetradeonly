@@ -3,19 +3,12 @@ import { useState, useEffect, useContext, createContext } from 'react';
 
 // App imports
 import { providers, colorPalette } from './data';
-import { fillProperties, filterGeometries, filterLines } from './helpers';
-
-// Context imports
-import { useGeo } from 'context/geo';
 
 const MarkersContext: React.Context<any> = createContext(null);
 
 export const useMarkers = () => useContext(MarkersContext)
 
 export const MarkersProvider = ({children}: any) => {
-	const { mapRef } = useGeo();
-	const map = mapRef.current;
-
 	const [ markers, setMarkers ] = useState<any>({});
 	const [ currentMarkerId, setCurrentMarkerId ] = useState<any>(null);
 	const [ currentImage, setCurrentImage ] = useState<any>(null);
@@ -74,29 +67,6 @@ export const MarkersProvider = ({children}: any) => {
 	    });
 	}
 
-	const getLayersBySource = (sourceLayer: string) => {
-		return map?.getStyle()
-			.layers
-			.filter((layer: any) => layer['source-layer'] === sourceLayer)
-			.map((layer: any) => layer.id);
-	}
-
-	const getGeojson = (boundary: any, source: string, geometryType: string) => {
-		const layers = getLayersBySource('road');
-		const currentFeatures = map?.queryRenderedFeatures({ layers });
-		const fillProperty = fillProperties[geometryType] || 'fill-color';
-		const isLine = geometryType === 'LineString' || geometryType === 'MultiLineString';
-
-		if (!isLine) {
-			const geomFeatures = filterGeometries(currentFeatures, boundary, source);
-			return { type: 'FeatureCollection', features: geomFeatures }
-		}
-
-		const lineFeatures: any = filterLines(currentFeatures, boundary, source, fillProperty);
-		const features = lineFeatures.filter((item: any) => Object.keys(item.properties).length !== 0);
-		return { type: 'FeatureCollection', features };
-	};
-
 	useEffect(() => {
 		const handleKeyDown = (event: any) => event.keyCode === 27 && setAddPin(false);
 		window.addEventListener('keydown', handleKeyDown);
@@ -117,7 +87,6 @@ export const MarkersProvider = ({children}: any) => {
 			radius, setRadius,
 			addPin, setAddPin,
 			providers, colorPalette,
-			getGeojson
 		}}>
 			{children}
 		</MarkersContext.Provider>
