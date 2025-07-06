@@ -29,7 +29,8 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 			const receivedData = await res.json();
 			const placeInformation = receivedData.address_components;
 			return placeInformation;
-		} catch (error) {
+		} 
+		catch (error) {
 			console.error("Error fetching address:", error);
 			return null;
 		}
@@ -81,7 +82,12 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	const placeInfo = city ? [ city, country ].join(", ") : country ? country : ""; 
 
 	return (
-		<ReverseGeocodingApiContext.Provider value={{ getCurrentAddress, currentAddress, setCurrentAddress, placeInfo }}>
+		<ReverseGeocodingApiContext.Provider value={{ 
+			getCurrentAddress, 
+			currentAddress, 
+			setCurrentAddress, 
+			placeInfo 
+		}}>
 			{children}
 		</ReverseGeocodingApiContext.Provider>
 	)

@@ -7,9 +7,17 @@ import './styles.scss';
 import { ContextProvider } from 'context';
 
 export const App = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+  window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  });
+
   return (
     <ContextProvider>
-      <div className="app"> 
+      <div className="App"> 
         <Sidebar/>
         <Layout/>
       </div>

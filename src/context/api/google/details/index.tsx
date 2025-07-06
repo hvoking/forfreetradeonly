@@ -32,7 +32,6 @@ export const GoogleDetailsApiProvider = ({children}: any) => {
 	    	console.error("Error fetching address:", error);
 	    	return null;
 	    }
-	    
 	  }
 	  placeId && fetchData();
 	}, [ placeId ]);
