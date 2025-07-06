@@ -28,7 +28,7 @@ body {
 	position: relative;
 }
 @media screen and (max-width: 768px) {
-	.app {
+	.App {
 		grid-template-columns: auto;
 		grid-template-rows: min-content auto min-content;
 		grid-template-areas: 
