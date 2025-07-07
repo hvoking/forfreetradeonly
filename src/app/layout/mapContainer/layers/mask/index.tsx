@@ -7,13 +7,13 @@ import { Boundary } from './boundary';
 import { SubLayers } from './sublayers';
 
 // Context imports
-import { useIsochroneApi } from 'context/api/isochrone';
+import { useMapboxIsochroneApi } from 'context/api/mapbox/isochrone';
 
 // Third party imports
 import * as turf from '@turf/turf';
 
 export const Mask = ({ marker }: any) => {
-  const { fetchIsochrone } = useIsochroneApi();
+  const { fetchIsochrone } = useMapboxIsochroneApi();
 
   const [ boundary, setBoundary ] = useState<any>(null);
 

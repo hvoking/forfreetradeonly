@@ -6,17 +6,11 @@ import { useGeo } from 'context/geo';
 
 const MapboxReverseApiContext: React.Context<any> = createContext(null)
 
-export const useMapboxReverseApi = () => {
-	return (
-		useContext(MapboxReverseApiContext)
-	)
-}
+export const useMapboxReverseApi = () => useContext(MapboxReverseApiContext);
 
 export const MapboxReverseApiProvider = ({children}: any) => {
 	const { viewport } = useGeo();
 	const [ mapboxReverseData, setMapboxReverseData ] = useState<any>(null);
-
-	const token = process.env.REACT_APP_MAPBOX_TOKEN;
 
 	useEffect(() => {
 	  const fetchData = async () => {
@@ -26,11 +20,10 @@ export const MapboxReverseApiProvider = ({children}: any) => {
 	    	https://api.mapbox.com/geocoding/v5/
 	    	mapbox.places/
 	    	${longitude},${latitude}.json
-	    	?access_token=${token}
+	    	?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}
 	    	&language=en
 	    `;
 	    const url = tempUrl.replace(/\s/g, '');
-
 	    try {
 		    const res = await fetch(url);
 		    if (!res.ok) {
