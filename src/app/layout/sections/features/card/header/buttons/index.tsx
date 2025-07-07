@@ -3,7 +3,7 @@ import { Arrow } from './arrow';
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 
 export const Buttons = ({ marker, activeCharts, setActiveCharts }: any) => {
 	const { rejectMarker } = useMarkers();

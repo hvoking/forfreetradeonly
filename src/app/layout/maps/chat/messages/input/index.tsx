@@ -6,7 +6,7 @@ import { processData } from './data';
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 import { useReverseGeocodingApi } from 'context/api/google/reverse';
 
 const prefix: any = {

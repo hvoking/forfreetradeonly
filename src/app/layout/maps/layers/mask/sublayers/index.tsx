@@ -2,7 +2,7 @@
 import { Lines } from './lines';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 
 export const SubLayers = ({ boundary, marker }: any) => {
 	const { providers } = useMarkers();

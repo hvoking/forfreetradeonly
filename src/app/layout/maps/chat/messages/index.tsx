@@ -8,7 +8,7 @@ import './styles.scss';
 
 // Context imports
 import { useRagApi } from 'context/api/rag';
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 
 export const Messages = () => {
     // Context hooks

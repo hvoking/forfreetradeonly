@@ -8,8 +8,8 @@ import { Footer } from './footer';
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/markers';
-import { useGeojson } from 'context/geojson';
+import { useMarkers } from 'context/data/markers';
+import { useGeojson } from 'context/data/geojson';
 
 export const Card = ({ marker }: any) => {
 	const [ activeCharts, setActiveCharts ] = useState(true);

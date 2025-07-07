@@ -2,7 +2,7 @@
 import { useState, useContext, createContext } from 'react';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 import { useGeo } from 'context/geo';
 
 const BoundaryContext: React.Context<any> = createContext(null);

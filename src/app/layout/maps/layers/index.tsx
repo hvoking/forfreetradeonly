@@ -2,7 +2,7 @@
 import { Mask } from './mask';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 
 export const Layers = () => {
 	const { markers } = useMarkers();

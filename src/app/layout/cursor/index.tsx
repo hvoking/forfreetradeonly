@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 
 export const Cursor = () => {
 	const cursorRef = useRef<any>(null);

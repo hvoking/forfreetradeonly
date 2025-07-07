@@ -2,7 +2,7 @@
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 
 export const Section = ({ section, title }: any) => {
 	const { activePage, setActivePage } = useMarkers();

@@ -1,5 +1,3 @@
-import { MarkersProvider } from './markers';
-import { GeojsonProvider } from './geojson';
 import { GeoProvider } from './geo';
 import { ApiProvider } from './api';
 import { EventsProvider } from './events';
@@ -9,9 +7,7 @@ import { DataProvider } from './data';
 export const ContextProvider = ({children}: any) => {
   return (
     <GeoProvider>
-    <MarkersProvider>
     <DataProvider>
-    <GeojsonProvider>
     <ApiProvider>
     <EventsProvider>
     <SizesProvider>
@@ -19,9 +15,7 @@ export const ContextProvider = ({children}: any) => {
     </SizesProvider>
     </EventsProvider>
     </ApiProvider>
-    </GeojsonProvider>
     </DataProvider>
-    </MarkersProvider>
     </GeoProvider>
   )
 }

@@ -7,7 +7,7 @@ import { Options } from './options';
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/markers';
+import { useMarkers } from 'context/data/markers';
 
 // Context imports
 import { useBoundary } from 'context/events/boundary';
