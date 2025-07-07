@@ -1,7 +1,7 @@
 // App imports
 import './styles.scss';
 
-export const SearchIcon = () => {
+export const Icon = () => {
 	const currentImage = "/static/icons/search.svg";
 
 	return (
@@ -16,4 +16,4 @@ export const SearchIcon = () => {
 	)
 }
 
-SearchIcon.displayName="SearchIcon";
+Icon.displayName="Icon";

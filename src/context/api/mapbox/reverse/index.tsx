@@ -13,33 +13,31 @@ export const useReverseGeocodingApi = () => {
 }
 
 export const ReverseGeocodingApiProvider = ({children}: any) => {
-	const { parcelId } = useGeo();
+	const { viewport } = useGeo();
+	const [ mapboxReverseData, setMapboxReverseData ] = useState<any>(null);
 
-	const [ parcelsProperties, setParcelsProperties ] = useState<any>({});
-	const [ geocodingLongitude, setGeocodingLongitude ] = useState<any>(null);
-	const [ geocodingLatitude, setGeocodingLatitude ] = useState<any>(null);
+	const token = process.env.REACT_APP_MAPBOX_TOKEN;
+
+	const { longitude, latitude } = viewport;
 
 	useEffect(() => {
 	  const fetchData = async () => {
 	    const tempUrl = `
 	    	https://api.mapbox.com/geocoding/v6/
 	    	mapbox.places/
-	    	${geocodingLongitude},
-	    	${geocodingLatitude}
-	    	.json
-	    	?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}
+	    	${longitude},${latitude}.json
+	    	?access_token=${token}
 	    `;
 	    const url = tempUrl.replace(/\s/g, '');
+
 	    try {
 		    const res = await fetch(url);
 		    if (!res.ok) {
 	  			throw new Error(`HTTP error! status: ${res.status}`);
 	  		}
 		    const receivedData = await res.json();
-		    geocodingLongitude && setParcelsProperties({
-		    	...parcelsProperties, 
-		    	[parcelId] : receivedData 
-		    });
+		    setMapboxReverseData(receivedData)
+		    
 	    }
 	    catch (error) {
 	    	console.error("Error fetching address:", error);
@@ -47,12 +45,11 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	    }
 	  }
 	  fetchData();
-	}, [ geocodingLongitude ]);
+	}, [ viewport ]);
 
 	return (
 		<ReverseGeocodingApiContext.Provider value={{ 
-			parcelsProperties, setParcelsProperties,
-			setGeocodingLatitude, setGeocodingLongitude,
+			mapboxReverseData
 		}}>
 			{children}
 		</ReverseGeocodingApiContext.Provider>

@@ -12,30 +12,6 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	const { viewport } = useGeo();
 	const [ currentAddress, setCurrentAddress ] = useState<any>(null);
 
-	const getCurrentAddress = async (lng: any, lat: any) => {
-		const tempUrl = `
-			${process.env.REACT_APP_API_URL}/
-			reverse_api
-			?language=en
-			&latitude=${lat}
-			&longitude=${lng}
-		`;
-		const url = tempUrl.replace(/\s/g, '');
-		try {
-			const res = await fetch(url);
-			if (!res.ok) {
-				throw new Error(`HTTP error! status: ${res.status}`);
-			}
-			const receivedData = await res.json();
-			const placeInformation = receivedData.address_components;
-			return placeInformation;
-		} 
-		catch (error) {
-			console.error("Error fetching address:", error);
-			return null;
-		}
-	};
-
 	useEffect(() => {
 		const { longitude, latitude } = viewport;
 		
@@ -83,9 +59,6 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 
 	return (
 		<ReverseGeocodingApiContext.Provider value={{ 
-			getCurrentAddress, 
-			currentAddress, 
-			setCurrentAddress, 
 			placeInfo 
 		}}>
 			{children}

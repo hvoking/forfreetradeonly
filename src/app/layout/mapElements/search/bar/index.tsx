@@ -4,7 +4,7 @@ import './styles.scss';
 // Context imports
 import { useSearch } from 'context/events/search';
 
-export const SearchBar = () => {
+export const Bar = () => {
 	const { inputRef, searchText, handleChange, handleKeyDown } = useSearch();
 
 	return (
@@ -21,4 +21,4 @@ export const SearchBar = () => {
 	)
 }
 
-SearchBar.displayName="SearchBar";
+Bar.displayName="Bar";
