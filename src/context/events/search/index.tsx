@@ -88,7 +88,7 @@ export const SearchProvider = ({children}: any) => {
     const match = currentSearchValue?.match(cityPattern)[0].replace(/^\s/, '');
 
     mapboxSearchData?.features.filter((item: any) => {
-      const place_name = item.place_name_pt.replace(/[, - -] Santa .*/, '').toLowerCase()
+      const place_name = item.place_name.toLowerCase()
       const place_coordinates = item.geometry.coordinates;
       if (place_name === currentSearchValue) {
         setViewport({
