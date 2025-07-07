@@ -5,17 +5,13 @@ import './styles.scss';
 import { useMapboxReverseApi } from 'context/api/mapbox/reverse';
 
 export const Location = () => {
-	const { mapboxReverseData } = useMapboxReverseApi();
+	const { placeInfo } = useMapboxReverseApi();
 
-	if (!mapboxReverseData) return <></>;
-
-	const features = mapboxReverseData.features;
-
-	const city = features[5]?.place_name;
+	if (!placeInfo) return <></>;
 
 	return (
 		<div className="map-location">
-			{city}
+			{placeInfo}
 		</div>
 	)
 }

@@ -6,7 +6,7 @@ import { processData } from './data';
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/data/markers';
+import { useGeojson } from 'context/data/geojson';
 import { useMapboxReverseApi } from 'context/api/mapbox/reverse';
 
 const prefix: any = {
@@ -24,7 +24,7 @@ const color: any = {
 export const Input = ({ markerId, currentMarker, providers, setRequestData, updateResponse, setRequestText }: any) => {
 	const [ searchText, setSearchText ] = useState<any>(null);
 
-	const { sharedGeoJsonDataMap } = useMarkers();
+	const { sharedGeoJsonDataMap } = useGeojson();
 	const { mapboxReverseData } = useMapboxReverseApi();
 
 	const handleChange = (e: any) => {
@@ -51,7 +51,7 @@ export const Input = ({ markerId, currentMarker, providers, setRequestData, upda
     			const sourcePrefix = prefix[currentType];
     			const colorLabel = color[currentType];
 
-				const data = sharedGeoJsonDataMap.value[sourcePrefix + markerId];
+				const data = sharedGeoJsonDataMap.value.get(sourcePrefix + markerId);
 				const processedData = processData(data, columnName, colorLabel);
 				
 				const geoInfo = {

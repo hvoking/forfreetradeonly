@@ -1,12 +1,12 @@
 // App imports
 import { Logo } from './logo';
-import { Navigation } from './navigation';
+import { Menu } from './menu';
 
 export const Sidebar = () => {
 	return (
 		<>
 			<Logo/>
-			<Navigation/>
+			<Menu/>
 		</>
 	)
 }

@@ -16,13 +16,13 @@ body {
 	grid-template-rows: min-content auto;
 	grid-template-areas: 
 		"lg ly"
-		"na ly"
+		"me ly"
 }
 .logo {
 	grid-area: lg;
 }
-.navigation {
-	grid-area: na
+.menu {
+	grid-area: me
 }
 .layout {
 	grid-area: ly;
@@ -35,6 +35,6 @@ body {
 		grid-template-areas: 
 			"lg"
 			"ly"
-			"na";
+			"me";
 	}	
 }

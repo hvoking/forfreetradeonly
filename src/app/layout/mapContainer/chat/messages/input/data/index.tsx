@@ -1,4 +1,5 @@
 export const processData = (data: any, name: any, colorLabel: any) => {
+	if (!data) return null;
 	const { distribution } = data.reduce((acc: any, curr: any) => {
 		const key = curr[name];
 		if (key) {

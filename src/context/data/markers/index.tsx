@@ -31,7 +31,7 @@ export const MarkersProvider = ({children}: any) => {
 				center: event.lngLat,
 				image: currentImage,
 				name: currentName,
-				radius: 0.5,
+				radius,
 				contoursMinutes: 10,
 				fillColor: "rgba(166, 204, 245, 0.8)",
 				fillOpacity: 0.1,
