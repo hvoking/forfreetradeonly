@@ -7,7 +7,7 @@ import './styles.scss';
 
 // Context imports
 import { useMarkers } from 'context/data/markers';
-import { useReverseGeocodingApi } from 'context/api/google/reverse';
+import { useMapboxReverseApi } from 'context/api/mapbox/reverse';
 
 const prefix: any = {
 	LineString: "lines-source-",
@@ -25,7 +25,7 @@ export const Input = ({ markerId, currentMarker, providers, setRequestData, upda
 	const [ searchText, setSearchText ] = useState<any>(null);
 
 	const { sharedGeoJsonDataMap } = useMarkers();
-	const { currentAddress } = useReverseGeocodingApi();
+	const { mapboxReverseData } = useMapboxReverseApi();
 
 	const handleChange = (e: any) => {
 		const query = e.target.value;
@@ -58,7 +58,7 @@ export const Input = ({ markerId, currentMarker, providers, setRequestData, upda
 					geobot_info: currentMarker, 
 					data_provider_info: currentProvider, 
 					current_layer_data: processedData,
-					location_info: currentAddress,
+					location_info: mapboxReverseData,
 				}
 				processedData && setRequestData(geoInfo)
 			}

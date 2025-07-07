@@ -16,6 +16,11 @@
   font-size: 16px;
   font-weight: bold;
 }
+.card-header-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .header-buttons {
   display: flex; 
   cursor: pointer;

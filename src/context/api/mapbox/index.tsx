@@ -1,13 +1,13 @@
 // Context imports
-import { ReverseGeocodingApiProvider } from './reverse';
+import { MapboxReverseApiProvider } from './reverse';
 import { MapboxSearchApiProvider } from './search';
 
 export const MapboxApiProvider = ({ children }: any) => {
   return (
     <MapboxSearchApiProvider>
-    <ReverseGeocodingApiProvider>
+    <MapboxReverseApiProvider>
       {children}
-    </ReverseGeocodingApiProvider>
+    </MapboxReverseApiProvider>
     </MapboxSearchApiProvider>
   )
 }

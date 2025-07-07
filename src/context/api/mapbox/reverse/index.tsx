@@ -4,15 +4,15 @@ import { useState, useEffect, useContext, createContext } from 'react';
 // App imports
 import { useGeo } from 'context/geo';
 
-const ReverseGeocodingApiContext: React.Context<any> = createContext(null)
+const MapboxReverseApiContext: React.Context<any> = createContext(null)
 
-export const useReverseGeocodingApi = () => {
+export const useMapboxReverseApi = () => {
 	return (
-		useContext(ReverseGeocodingApiContext)
+		useContext(MapboxReverseApiContext)
 	)
 }
 
-export const ReverseGeocodingApiProvider = ({children}: any) => {
+export const MapboxReverseApiProvider = ({children}: any) => {
 	const { viewport } = useGeo();
 	const [ mapboxReverseData, setMapboxReverseData ] = useState<any>(null);
 
@@ -23,10 +23,11 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	  	const { longitude, latitude } = viewport;
 
 	    const tempUrl = `
-	    	https://api.mapbox.com/geocoding/v6/
+	    	https://api.mapbox.com/geocoding/v5/
 	    	mapbox.places/
 	    	${longitude},${latitude}.json
 	    	?access_token=${token}
+	    	&language=en
 	    `;
 	    const url = tempUrl.replace(/\s/g, '');
 
@@ -37,7 +38,6 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	  		}
 		    const receivedData = await res.json();
 		    setMapboxReverseData(receivedData)
-		    
 	    }
 	    catch (error) {
 	    	console.error("Error fetching address:", error);
@@ -48,10 +48,10 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	}, [ viewport ]);
 
 	return (
-		<ReverseGeocodingApiContext.Provider value={{ mapboxReverseData }}>
+		<MapboxReverseApiContext.Provider value={{ mapboxReverseData }}>
 			{children}
-		</ReverseGeocodingApiContext.Provider>
+		</MapboxReverseApiContext.Provider>
 	)
 }
 
-ReverseGeocodingApiContext.displayName = "ReverseGeocodingApiContext";
+MapboxReverseApiContext.displayName = "MapboxReverseApiContext";

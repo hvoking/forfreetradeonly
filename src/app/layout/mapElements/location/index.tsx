@@ -2,16 +2,20 @@
 import './styles.scss';
 
 // Context imports
-import { useReverseGeocodingApi } from 'context/api/google/reverse';
+import { useMapboxReverseApi } from 'context/api/mapbox/reverse';
 
 export const Location = () => {
-	const { placeInfo } = useReverseGeocodingApi();
+	const { mapboxReverseData } = useMapboxReverseApi();
 
-	if (!placeInfo) return <></>;
+	if (!mapboxReverseData) return <></>;
+
+	const features = mapboxReverseData.features;
+
+	const city = features[5]?.place_name;
 
 	return (
 		<div className="map-location">
-			{placeInfo}
+			{city}
 		</div>
 	)
 }

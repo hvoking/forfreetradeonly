@@ -19,17 +19,17 @@ export const MapboxSearchApiProvider = ({children}: any) => {
 	const { viewport } = useGeo();
 	const { longitude, latitude } = viewport;
 
+	const token = process.env.REACT_APP_MAPBOX_TOKEN;
+
 	useEffect(() => {
 	  const fetchData = async () => {
 	  	const temporarySearchText = searchText.replace(" ", "__");
 	    const tempUrl = `
-	    	https://api.mapbox.com/geocoding/v6/
+	    	https://api.mapbox.com/geocoding/v5/
 	    	mapbox.places/
 	    	${temporarySearchText}.json
-	    	?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}
-	    	&country=BR
-	    	&language=pt
-	    	&proximity=${longitude},${latitude}
+	    	?access_token=${token}
+	    	&language=en
 	    `;
 	    const url = tempUrl
 	    	.replace(/\s/g, '')

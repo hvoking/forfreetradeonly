@@ -3,15 +3,11 @@ import { useState, useRef, useContext, createContext } from 'react';
 
 // Context imports
 import { useGeo } from 'context/geo';
-import { useGoogleSearchApi } from 'context/api/google/search';
+import { useMapboxSearchApi } from 'context/api/mapbox/search';
 
 const SearchContext: React.Context<any> = createContext(null)
 
-export const useSearch = () => {
-  return (
-    useContext(SearchContext)
-  )
-}
+export const useSearch = () => useContext(SearchContext);
 
 export const SearchProvider = ({children}: any) => {
   const inputRef = useRef<any>(null);
@@ -19,12 +15,12 @@ export const SearchProvider = ({children}: any) => {
   const [ suggestionIndex, setSuggestionIndex ] = useState(0);
   const [ suggestionsActive, setSuggestionsActive ]= useState(false);
   
-  const { setPlaceId } = useGeo();
-  const { googleSearchData, searchText, setSearchText } = useGoogleSearchApi();
+  const { setViewport } = useGeo();
+  const { mapboxSearchData, searchText, setSearchText } = useMapboxSearchApi();
 
-  const suggestions = googleSearchData && googleSearchData.predictions.reduce((total: any, item: any) => {
-    const placeName = item.description.toLowerCase()
-    total.push(placeName)
+  const suggestions = mapboxSearchData?.features.reduce((total: any, item: any) => {
+    const place_name = item.place_name.toLowerCase()
+    total.push(place_name)
     return total
   }, []);
 
@@ -41,31 +37,39 @@ export const SearchProvider = ({children}: any) => {
   };
 
   const handleKeyDown = (e: any) => {
-    // up arrow
-    if (e.keyCode === 38) {
+    if (e.keyCode === 38) { // up arrow
       if (suggestionIndex === 0) {
         return;
       }
       setSuggestionIndex(suggestionIndex - 1);
     }
-    // down arrow
-    else if (e.keyCode === 40) {
+    else if (e.keyCode === 40) { // down arrow
       if (suggestionIndex - 1 === suggestions.length) {
         return
       }
       setSuggestionIndex(suggestionIndex + 1);
     }
-    // enter
-    else if (e.keyCode === 13) {
-      const currentSearchValue: any = suggestions && suggestions[suggestionIndex]
-      getCurrentPrediction(currentSearchValue)
+    else if (e.keyCode === 13) { // enter
+      const cityPattern = /[^,]*$/;
+      const currentSearchValue: any = suggestions[suggestionIndex]
+      const match = currentSearchValue && currentSearchValue.match(cityPattern)[0].replace(/^\s/, '');
+
+      mapboxSearchData?.features.filter((item: any) => {
+        const place_name = item.place_name.toLowerCase()
+        const place_coordinates = item.geometry.coordinates;
+        if (place_name === currentSearchValue) {
+          setViewport({
+            longitude: place_coordinates[0], 
+            latitude: place_coordinates[1]
+          });
+        }
+      })
+
       currentSearchValue && setSearchText(currentSearchValue);
       setSuggestionIndex(0);
       setSuggestionsActive(false);
     }
-
-    // scape
-    else if (e.keyCode === 27) {
+    else if (e.keyCode === 27) { // scape
       setSearchText("");
       setSuggestionIndex(0);
       setSuggestionsActive(false);
@@ -78,18 +82,21 @@ export const SearchProvider = ({children}: any) => {
     setSuggestionsActive(false);
   }
 
-  const getCurrentPrediction = (currentSearchValue: any) => {
-    googleSearchData && googleSearchData.predictions.forEach((item: any) => {
-      const placeName = item.description.toLowerCase().trim();
-      if (placeName === currentSearchValue) {
-        setPlaceId(item.place_id);
+  const handleClick = (e: any) => {
+    const cityPattern = /[^,]*$/;
+    const currentSearchValue = e.target.innerText;
+    const match = currentSearchValue?.match(cityPattern)[0].replace(/^\s/, '');
+
+    mapboxSearchData?.features.filter((item: any) => {
+      const place_name = item.place_name_pt.replace(/[, - -] Santa .*/, '').toLowerCase()
+      const place_coordinates = item.geometry.coordinates;
+      if (place_name === currentSearchValue) {
+        setViewport({
+          longitude: place_coordinates[0], 
+          latitude: place_coordinates[1]
+        })
       }
     })
-  }
-
-  const handleClick = (e: any) => {
-    const currentSearchValue = e.target.innerText.trim();
-    getCurrentPrediction(currentSearchValue)
     setSearchText(currentSearchValue);
     setSuggestionsActive(false);
   };
