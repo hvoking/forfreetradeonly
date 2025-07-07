@@ -58,9 +58,7 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	const placeInfo = city ? [ city, country ].join(", ") : country ? country : ""; 
 
 	return (
-		<ReverseGeocodingApiContext.Provider value={{ 
-			placeInfo 
-		}}>
+		<ReverseGeocodingApiContext.Provider value={{ placeInfo }}>
 			{children}
 		</ReverseGeocodingApiContext.Provider>
 	)

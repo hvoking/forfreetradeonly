@@ -18,10 +18,10 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 
 	const token = process.env.REACT_APP_MAPBOX_TOKEN;
 
-	const { longitude, latitude } = viewport;
-
 	useEffect(() => {
 	  const fetchData = async () => {
+	  	const { longitude, latitude } = viewport;
+
 	    const tempUrl = `
 	    	https://api.mapbox.com/geocoding/v6/
 	    	mapbox.places/
@@ -48,9 +48,7 @@ export const ReverseGeocodingApiProvider = ({children}: any) => {
 	}, [ viewport ]);
 
 	return (
-		<ReverseGeocodingApiContext.Provider value={{ 
-			mapboxReverseData
-		}}>
+		<ReverseGeocodingApiContext.Provider value={{ mapboxReverseData }}>
 			{children}
 		</ReverseGeocodingApiContext.Provider>
 	)
