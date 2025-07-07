@@ -13,12 +13,11 @@ export const useMapboxSearchApi = () => {
 }
 
 export const MapboxSearchApiProvider = ({children}: any) => {
-	const [ mapboxSearchData, setMapboxSearchData ] = useState(null);
 	const [ searchText, setSearchText ] = useState('');
-	const [ finalSearchText, setFinalSearchText ] = useState('');
-	const { markerCoordinates } = useGeo();
-
-	const { longitude, latitude } = markerCoordinates;
+	const [ mapboxSearchData, setMapboxSearchData ] = useState<any>(null);
+	
+	const { viewport } = useGeo();
+	const { longitude, latitude } = viewport;
 
 	useEffect(() => {
 	  const fetchData = async () => {
@@ -55,8 +54,7 @@ export const MapboxSearchApiProvider = ({children}: any) => {
 	return (
 		<MapboxSearchApiContext.Provider value={{ 
 			mapboxSearchData, 
-			searchText, setSearchText, 
-			finalSearchText, setFinalSearchText,
+			searchText, setSearchText
 		}}>
 			{children}
 		</MapboxSearchApiContext.Provider>

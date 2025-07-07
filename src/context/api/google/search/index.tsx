@@ -10,11 +10,10 @@ export const useGoogleSearchApi = () => useContext(GoogleSearchApiContext)
 
 export const GoogleSearchApiProvider = ({children}: any) => {
 	const [ searchText, setSearchText ] = useState('');
-	const [ googleSearchData, setGoogleSearchData ] = useState(null);
+	const [ googleSearchData, setGoogleSearchData ] = useState<any>(null);
 
 	const { viewport } = useGeo();
-	const latitude = viewport.latitude;
-	const longitude = viewport.longitude;
+	const { longitude, latitude } = viewport;
 
 	useEffect(() => {
 	  const fetchData = async () => {
