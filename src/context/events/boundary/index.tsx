@@ -11,32 +11,9 @@ export const useBoundary = () => useContext(BoundaryContext)
 
 export const BoundaryProvider = ({children}: any) => {
 	const { mapRef } = useGeo();
-	const { markers, setCurrentMarkerId, addPin, addMarker } = useMarkers();
+	const { markers, setCurrentMarkerId, addMarker } = useMarkers();
 
 	const [ optionsCoords, setOptionsCoords ] = useState<any>(null);
-	const [ messageCoords, setMessageCoords ] = useState<any>(null);
-
-	const addChatbot = (event: any) => {
-		const map = mapRef.current.getMap();
-
-	    if (map.isMoving() || map.isZooming() || map.isRotating()) {
-	      return;
-	    }
-
-	    if (addPin) {return;}
-
-	    const { point, lngLat } = event;
-		const markerId = isInside(point);
-
-		if (!messageCoords) {
-			!markerId ? 
-			setMessageCoords(null) : 
-			setMessageCoords(lngLat);
-		}
-		else {
-			setMessageCoords(null);
-		}
-	}
 
 	const isInside = (point: any) => {
 		const map = mapRef.current;
@@ -62,8 +39,6 @@ export const BoundaryProvider = ({children}: any) => {
 	    const { point, lngLat } = event;
 		const markerId = isInside(point);
 
-		setMessageCoords(null);
-		
 		!markerId ? 
 		setOptionsCoords(null) : 
 		setOptionsCoords(lngLat);
@@ -71,16 +46,13 @@ export const BoundaryProvider = ({children}: any) => {
 
 	const onClick = (event: any) => {
 		setOptionsCoords(null);
-		addChatbot(event);
 		addMarker(event);
 	}
 
 	return (
 		<BoundaryContext.Provider value={{ 
 			onContextMenu, onClick,
-			optionsCoords, setOptionsCoords,
-			messageCoords, setMessageCoords,
-			addChatbot
+			optionsCoords, setOptionsCoords
 		}}>
 			{children}
 		</BoundaryContext.Provider>

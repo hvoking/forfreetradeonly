@@ -4,7 +4,6 @@ import { useState } from 'react';
 // App imports
 import { Layers } from './layers';
 import { Tooltip } from './tooltip';
-import { Chat } from './chat';
 import { Geolocate } from './geolocate';
 
 // Context imports
@@ -35,7 +34,6 @@ export const MapContainer = () => {
 				<>
 					<Layers/>
 					<Tooltip/>
-					<Chat/>
 					<Geolocate/>
 				</>
 			}

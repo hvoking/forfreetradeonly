@@ -3,7 +3,7 @@ import { MapboxReverseApiProvider } from './reverse';
 import { MapboxSearchApiProvider } from './search';
 import { MapboxIsochroneApiProvider } from './isochrone';
 
-export const MapboxApiProvider = ({ children }: any) => {
+export const MapboxProvider = ({ children }: any) => {
   return (
     <MapboxSearchApiProvider>
     <MapboxReverseApiProvider>
@@ -15,4 +15,4 @@ export const MapboxApiProvider = ({ children }: any) => {
   )
 }
 
-MapboxApiProvider.displayName="MapboxApiProvider";
+MapboxProvider.displayName="MapboxProvider";

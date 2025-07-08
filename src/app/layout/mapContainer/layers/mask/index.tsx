@@ -7,7 +7,7 @@ import { Boundary } from './boundary';
 import { SubLayers } from './sublayers';
 
 // Context imports
-import { useMapboxIsochroneApi } from 'context/api/mapbox/isochrone';
+import { useMapboxIsochroneApi } from 'context/mapbox/isochrone';
 
 // Third party imports
 import * as turf from '@turf/turf';

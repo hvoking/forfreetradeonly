@@ -3,7 +3,7 @@ import { useState, useRef, useContext, createContext } from 'react';
 
 // Context imports
 import { useGeo } from 'context/geo';
-import { useMapboxSearchApi } from 'context/api/mapbox/search';
+import { useMapboxSearchApi } from 'context/mapbox/search';
 
 const SearchContext: React.Context<any> = createContext(null)
 
@@ -19,10 +19,25 @@ export const SearchProvider = ({children}: any) => {
   const { mapboxSearchData, searchText, setSearchText } = useMapboxSearchApi();
 
   const suggestions = mapboxSearchData?.features.reduce((total: any, item: any) => {
-    const place_name = item.place_name.toLowerCase()
-    total.push(place_name)
+    total.push(item.place_name.toLowerCase())
     return total
   }, []);
+
+  const flyToDestination = (currentSearchValue: string) => {
+    mapboxSearchData?.features.forEach((item: any) => {
+      const place_name = item.place_name.toLowerCase();
+      const [ longitude, latitude ] = item.geometry.coordinates;
+      if (place_name === currentSearchValue) {
+        setViewport({ longitude, latitude });
+      }
+    });
+  };
+
+  const cleanSuggestions = () => {
+    setSearchText("");
+    setSuggestionIndex(0);
+    setSuggestionsActive(false);
+  };
 
   const handleChange = (e: any) => {
     const query = e.target.value;
@@ -50,55 +65,23 @@ export const SearchProvider = ({children}: any) => {
       setSuggestionIndex(suggestionIndex + 1);
     }
     else if (e.keyCode === 13) { // enter
-      const cityPattern = /[^,]*$/;
       const currentSearchValue: any = suggestions[suggestionIndex]
-      const match = currentSearchValue && currentSearchValue.match(cityPattern)[0].replace(/^\s/, '');
-
-      mapboxSearchData?.features.filter((item: any) => {
-        const place_name = item.place_name.toLowerCase()
-        const place_coordinates = item.geometry.coordinates;
-        if (place_name === currentSearchValue) {
-          setViewport({
-            longitude: place_coordinates[0], 
-            latitude: place_coordinates[1]
-          });
-        }
-      })
-
-      currentSearchValue && setSearchText(currentSearchValue);
-      setSuggestionIndex(0);
-      setSuggestionsActive(false);
+      if (currentSearchValue) {
+        flyToDestination(currentSearchValue);
+        cleanSuggestions();
+      }
     }
     else if (e.keyCode === 27) { // scape
-      setSearchText("");
       setSuggestionIndex(0);
       setSuggestionsActive(false);
+      setSearchText("");
     }
   };
 
-  const cleanSuggestions = () => {
-    setSearchText("");
-    setSuggestionIndex(0);
-    setSuggestionsActive(false);
-  }
-
   const handleClick = (e: any) => {
-    const cityPattern = /[^,]*$/;
     const currentSearchValue = e.target.innerText;
-    const match = currentSearchValue?.match(cityPattern)[0].replace(/^\s/, '');
-
-    mapboxSearchData?.features.filter((item: any) => {
-      const place_name = item.place_name.toLowerCase()
-      const place_coordinates = item.geometry.coordinates;
-      if (place_name === currentSearchValue) {
-        setViewport({
-          longitude: place_coordinates[0], 
-          latitude: place_coordinates[1]
-        })
-      }
-    })
-    setSearchText(currentSearchValue);
-    setSuggestionsActive(false);
+    flyToDestination(currentSearchValue);
+    cleanSuggestions();
   };
 
   return (
