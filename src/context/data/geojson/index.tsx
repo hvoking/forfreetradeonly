@@ -21,18 +21,11 @@ export const GeojsonProvider = ({children}: any) => {
 		sharedGeoJsonDataMap.value = newMap;
 	}
 
-	const removeGeojsonProperties = (sourceId: any) => {
-		const newMap = new Map(sharedGeoJsonDataMap.value);
-		newMap.delete(sourceId);
-		sharedGeoJsonDataMap.value = newMap;
-	}
-
 	return (
 		<GeojsonContext.Provider value={{
 			sharedGeoJsonDataMap,
 			upsertGeojsonProperties,
 			getGeojsonProperties,
-			removeGeojsonProperties,
 		}}>
 			{children}
 		</GeojsonContext.Provider>
