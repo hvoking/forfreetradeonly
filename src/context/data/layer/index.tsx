@@ -21,12 +21,18 @@ export const LayerProvider = ({children}: any) => {
 			.map((layer: any) => layer.id);
 	}
 
-	const getGeojson = (boundary: any, source: string, geometryType: string) => {
+	const getFeaturesBySource = (currentSource: any) => {
 		const currentMap = mapRef.current;
-		const layers = getLayersBySource(currentMap, 'road');
+		const layers = getLayersBySource(currentMap, currentSource);
 		const currentFeatures = currentMap.queryRenderedFeatures({ layers });
+		return currentFeatures;
+	}
+
+	const getGeojson = (boundary: any, source: string, geometryType: string) => {
 		const fillProperty = fillProperties[geometryType] || 'fill-color';
 		const isLine = geometryType === 'LineString' || geometryType === 'MultiLineString';
+
+		const currentFeatures = getFeaturesBySource('road');
 
 		if (!isLine) {
 			const geomFeatures = filterGeometries(currentFeatures, boundary, source);

@@ -29,7 +29,7 @@ export const Mask = ({ marker }: any) => {
       } 
       // create a circle as boundary
       else {
-        const circle = turf.circle([ lng, lat ], radius, { steps: 32});
+        const circle = turf.circle([ lng, lat ], radius);
         setBoundary(circle);
       }
     };
