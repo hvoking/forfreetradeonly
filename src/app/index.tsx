@@ -1,8 +1,7 @@
 // App imports
 import { Sidebar } from './sidebar'; 
 import { Sections } from './sections';
-import { MapContainer } from './mapContainer';
-import { MapElements } from './mapElements';
+import { Maps } from './maps';
 import './styles.scss';
 
 // Context imports
@@ -23,8 +22,7 @@ export const App = () => {
         <Sidebar/>
         <div className="layout">
           <Sections/>
-          <MapContainer/>
-          <MapElements/>
+          <Maps/>
         </div>
       </div>
     </ContextProvider>

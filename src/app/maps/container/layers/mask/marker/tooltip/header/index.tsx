@@ -21,17 +21,21 @@ export const Header = ({ markerId, activeFeature, setActiveFeature, currentMarke
 
 	const SectionItem = ({ name }: any) => {
 		return (
-			<div className="section-item" style={{backgroundColor: isActiveColor(name) }}>
+			<div 
+				className="section-item" 
+				style={{backgroundColor: isActiveColor(name) 
+			}}>
 				<img 
 					src={process.env.PUBLIC_URL + `/static/icons/${name}.svg`} 
 					alt={name}
 					className="boundary-icon"
 					onClick={() => onClick(name)}
 				/>
-				{/*<div className="header-title">{name}</div>*/}
 			</div>
 		)
 	}
+
+	const { stroke, fillColor } = currentMarker;
 
 	return (
 		<div className="header-selector">
@@ -45,15 +49,12 @@ export const Header = ({ markerId, activeFeature, setActiveFeature, currentMarke
 					style={{backgroundColor: isActiveColor("fill") }}
 					onClick={() => onClick("fill")}
 				>
-					<div 
-						style={{
-							width: "25px", 
-							height: "25px", 
-							borderRadius: "50%", 
-							backgroundColor: currentMarker.fillColor
-						}}
-						
-					/>
+					<div style={{ 
+						width: "25px", 
+						height: "25px", 
+						borderRadius: "50%", 
+						backgroundColor: fillColor
+					}}/>
 					<div className="header-title">fill</div>
 				</div>
 				<div 
@@ -61,15 +62,7 @@ export const Header = ({ markerId, activeFeature, setActiveFeature, currentMarke
 					onClick={() => onClick("stroke")}
 					style={{backgroundColor: isActiveColor("stroke") 
 				}}>
-					<div 
-						style={{
-							width: "20px", 
-							height: "20px", 
-							borderRadius: "50%", 
-							border: `4px solid ${currentMarker.stroke}`
-						}}
-						
-					/>
+					<div style={{width: "20px", height: "20px", borderRadius: "50%", border: `4px solid ${stroke}`}}/>
 					<div className="header-title">stroke</div>
 				</div>
 			</section>

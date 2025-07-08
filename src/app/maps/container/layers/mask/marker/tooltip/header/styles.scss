@@ -4,7 +4,7 @@
   display: flex;
   gap: 5px;
   padding: 2px;
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: $card-bg;
   box-shadow: $box-shadow;
   width: min-content;
@@ -27,13 +27,14 @@
 }
 .boundary-icon {
   cursor: pointer; 
-  border-radius: 3px;
-  width: 30px;
-  padding: 4px;
+  border-radius: 5px;
+  padding: 5px;
+  height: 22px;
 }
 .section-item {
   display: flex;
   align-items: center;
   gap: 2px;
   padding: 5px;
+  border-radius: 5px;
 }

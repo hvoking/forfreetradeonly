@@ -1,5 +1,5 @@
 // App imports
-import { Add } from './add';
+import { Agents } from './agents';
 import { Features } from './features';
 import { Basemaps } from './basemaps';
 import './styles.scss';
@@ -14,7 +14,7 @@ export const Sections = () => {
 
 	return (
 		<div className="topics">
-			{activePage === "agent" && <Add/>}
+			{activePage === "agent" && <Agents/>}
 			{activePage === "features" && <Features/>}
 			{activePage === "basemaps" && <Basemaps/>}
 		</div>

@@ -43,7 +43,7 @@ export const CustomMarker = ({ marker }: any) => {
             onDrag={onDrag}
             onDragEnd={onDragEnd}
 		>
-			<div className="custom-marker"  onClick={onClick}>
+			<div className="custom-marker" onClick={onClick}>
 				<img 
 					src={image} 
 					alt="agent-avatar"
@@ -52,13 +52,13 @@ export const CustomMarker = ({ marker }: any) => {
 				<div className="marker-provider">
 					{name}
 				</div>
-				{activeTrash && 
+			</div>
+			{activeTrash && 
 				<>
 					<Trash onClick={(e: any) => rejectMarker(e, id)}/>
 					<Tooltip markerId={id}/>
 				</>
 			}
-			</div>
 	    </Marker>
 	)
 }

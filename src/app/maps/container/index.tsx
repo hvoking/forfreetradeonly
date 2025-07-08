@@ -27,6 +27,7 @@ export const MapContainer = () => {
 			mapStyle={mapStyle}
 			onLoad={() => setIsMapLoaded(true)}
 			onClick={(event: any) => addMarker(event)}
+			doubleClickZoom={false}
 		>
 			{isMapLoaded && 
 				<>
