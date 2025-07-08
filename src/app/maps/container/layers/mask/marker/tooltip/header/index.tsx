@@ -1,11 +1,10 @@
 // App imports
-import { Properties } from './properties';
 import './styles.scss';
 
 // Context imports
 import { useMarkers } from 'context/data/markers';
 
-export const Header = ({ markerId, activeFeature, setActiveFeature, currentMarker }: any) => {
+export const Header = ({ markerId, activeFeature, setActiveFeature }: any) => {
 	const { updateMarkers } = useMarkers();
 
 	const isActiveColor = (name: any) => 
@@ -42,11 +41,6 @@ export const Header = ({ markerId, activeFeature, setActiveFeature, currentMarke
 				<SectionItem name={"circle"}/>
 				<SectionItem name={"iso"}/>
 			</section>
-			<Properties 
-				currentMarker={currentMarker} 
-				isActiveColor={isActiveColor} 
-				onClick={onClick}
-			/>
 		</div>
 	)
 }

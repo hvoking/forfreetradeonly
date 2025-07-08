@@ -13,7 +13,7 @@ import { useMarkers } from 'context/data/markers';
 import { Marker } from 'react-map-gl/mapbox';
 
 export const Tooltip = ({ markerId }: any) => {
-  const { markers, colorPalette } = useMarkers();
+  const { markers } = useMarkers();
   const [ activeFeature, setActiveFeature ] = useState<any>('circle');
 
   if (!markerId) return <></>;
@@ -26,12 +26,9 @@ export const Tooltip = ({ markerId }: any) => {
           markerId={markerId} 
           activeFeature={activeFeature}
           setActiveFeature={setActiveFeature}
-          currentMarker={currentMarker}
         />
         <Options 
-          markerId={markerId} 
           activeFeature={activeFeature} 
-          colorPalette={colorPalette}
           currentMarker={currentMarker}
         />
       </div>

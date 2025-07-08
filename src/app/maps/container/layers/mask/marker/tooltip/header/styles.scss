@@ -23,6 +23,8 @@
 .boundary-selectors {
   display: flex;
   align-items: center;
+  padding: 2px;
+  gap: 5px;
 }
 .boundary-icon {
   cursor: pointer; 
