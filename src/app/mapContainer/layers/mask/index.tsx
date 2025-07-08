@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 // App imports
 import { CustomMarker } from './marker';
 import { Boundary } from './boundary';
-import { SubLayers } from './sublayers';
+import { Geojson } from './geojson';
 
 // Context imports
 import { useMapboxIsochroneApi } from 'context/mapbox/isochrone';
@@ -39,7 +39,7 @@ export const Mask = ({ marker }: any) => {
   return (
     <div key={id}>
       <Boundary marker={marker} boundary={boundary}/>
-      <SubLayers marker={marker} boundary={boundary}/>
+      <Geojson marker={marker} boundary={boundary}/>
       <CustomMarker marker={marker}/>
     </div>
   )

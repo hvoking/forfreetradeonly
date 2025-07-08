@@ -4,7 +4,7 @@ import { Lines } from './lines';
 // Context imports
 import { useMarkers } from 'context/data/markers';
 
-export const SubLayers = ({ boundary, marker }: any) => {
+export const Geojson = ({ boundary, marker }: any) => {
 	const { providers } = useMarkers();
 
 	if (!boundary) return <></>;
@@ -20,4 +20,4 @@ export const SubLayers = ({ boundary, marker }: any) => {
 	)
 }
 
-SubLayers.displayName="SubLayers";
+Geojson.displayName="Geojson";

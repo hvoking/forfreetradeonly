@@ -2,7 +2,7 @@
 import './styles.scss';
 
 // Context imports
-import { useSearch } from 'context/events/search';
+import { useSearch } from 'context/search';
 
 export const Cross = () => {
 	const { cleanSuggestions } = useSearch();

@@ -1,4 +1,9 @@
+// React imports
+import { useState } from 'react';
+
 // App imports
+import { Tooltip } from './tooltip';
+import { Trash } from './trash';
 import './styles.scss';
 
 // Context imports
@@ -8,8 +13,24 @@ import { useMarkers } from 'context/data/markers';
 import { Marker } from 'react-map-gl/mapbox';
 
 export const CustomMarker = ({ marker }: any) => {
-	const { updateMarkers } = useMarkers();
+	const [ activeTrash, setActiveTrash ] = useState(false);
+	const [ dragging, setDragging ] = useState(false);
+
+	const { updateMarkers, rejectMarker } = useMarkers();
 	const { id, center, image, name } = marker;
+
+	const onClick = (e: any) => {
+		e.stopPropagation();
+		!dragging && setActiveTrash((prev: boolean) => !prev)
+	}
+
+	const onDragStart = (e: any) =>  {
+		updateMarkers(id, "center", e.lngLat);
+		setDragging(true)
+	}
+	const onDrag = (e: any) => updateMarkers(id, "center", e.lngLat);
+
+	const onDragEnd = (e: any) => setTimeout(() => setDragging(false), 0);
 
 	return (
 		<Marker
@@ -18,9 +39,11 @@ export const CustomMarker = ({ marker }: any) => {
 			latitude={center.lat}
 			anchor="bottom"
 			draggable
-            onDrag={(e: any) => updateMarkers(id, "center", e.lngLat)}
+            onDragStart={onDragStart}
+            onDrag={onDrag}
+            onDragEnd={onDragEnd}
 		>
-			<div className="custom-marker">
+			<div className="custom-marker"  onClick={onClick}>
 				<img 
 					src={image} 
 					alt="agent-avatar"
@@ -29,6 +52,12 @@ export const CustomMarker = ({ marker }: any) => {
 				<div className="marker-provider">
 					{name}
 				</div>
+				{activeTrash && 
+				<>
+					<Trash onClick={(e: any) => rejectMarker(e, id)}/>
+					<Tooltip markerId={id}/>
+				</>
+			}
 			</div>
 	    </Marker>
 	)

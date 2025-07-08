@@ -1,6 +1,6 @@
 import { GeoProvider } from './geo';
 import { MapboxProvider } from './mapbox';
-import { EventsProvider } from './events';
+import { SearchProvider } from './search';
 import { SizesProvider } from './sizes';
 import { DataProvider } from './data';
 
@@ -9,11 +9,11 @@ export const ContextProvider = ({children}: any) => {
     <GeoProvider>
     <DataProvider>
     <MapboxProvider>
-    <EventsProvider>
+    <SearchProvider>
     <SizesProvider>
       {children}
     </SizesProvider>
-    </EventsProvider>
+    </SearchProvider>
     </MapboxProvider>
     </DataProvider>
     </GeoProvider>
