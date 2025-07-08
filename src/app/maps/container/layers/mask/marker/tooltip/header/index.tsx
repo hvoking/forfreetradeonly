@@ -1,4 +1,5 @@
 // App imports
+import { Properties } from './properties';
 import './styles.scss';
 
 // Context imports
@@ -35,37 +36,17 @@ export const Header = ({ markerId, activeFeature, setActiveFeature, currentMarke
 		)
 	}
 
-	const { stroke, fillColor } = currentMarker;
-
 	return (
 		<div className="header-selector">
 			<section className="boundary-selectors">
 				<SectionItem name={"circle"}/>
 				<SectionItem name={"iso"}/>
 			</section>
-			<section className="section-selectors">
-				<div 
-					className="section-item" 
-					style={{backgroundColor: isActiveColor("fill") }}
-					onClick={() => onClick("fill")}
-				>
-					<div style={{ 
-						width: "25px", 
-						height: "25px", 
-						borderRadius: "50%", 
-						backgroundColor: fillColor
-					}}/>
-					<div className="header-title">fill</div>
-				</div>
-				<div 
-					className="section-item" 
-					onClick={() => onClick("stroke")}
-					style={{backgroundColor: isActiveColor("stroke") 
-				}}>
-					<div style={{width: "20px", height: "20px", borderRadius: "50%", border: `4px solid ${stroke}`}}/>
-					<div className="header-title">stroke</div>
-				</div>
-			</section>
+			<Properties 
+				currentMarker={currentMarker} 
+				isActiveColor={isActiveColor} 
+				onClick={onClick}
+			/>
 		</div>
 	)
 }
