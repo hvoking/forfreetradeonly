@@ -5,11 +5,9 @@ import './styles.scss';
 import { useGeo } from 'context/geo';
 
 const listOfBaseMaps = [
-	{"Satellite": "mapbox://styles/mapbox/satellite-streets-v12"},
-	{"Mapbox Dark": "mapbox://styles/mapbox/dark-v11"},
 	{"Mapbox Light": "mapbox://styles/mapbox/light-v11"},
-	{"Mapbox Streets": "mapbox://styles/mapbox/streets-v12"},
-	{"Navigation": "mapbox://styles/mapbox/navigation-day-v1"},
+	{"Mapbox Dark": "mapbox://styles/mapbox/dark-v11"},
+	{"Satellite Streets": "mapbox://styles/mapbox/satellite-streets-v12"},
 	{"Navigation Night": "mapbox://styles/mapbox/navigation-night-v1"},
 ]
 
