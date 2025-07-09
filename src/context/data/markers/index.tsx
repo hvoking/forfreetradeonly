@@ -15,6 +15,19 @@ export const MarkersProvider = ({children}: any) => {
 	const [ radius, setRadius ] = useState(0.5);
 	const [ addPin, setAddPin ] = useState(false);
 
+	const providers = [
+		{
+			name: "streets",
+			label: 'Streets', 
+			provider: "mapbox", 
+			source: 'composite',
+			layer: 'road', 
+			type: "LineString", 
+			columnName: "type", 
+			graphicType: "dots"
+		}
+	];
+
 	const getMarkerId = (markers: any) => {
 	    const ids = Object.keys(markers).map(Number);
 	    const maxId = ids.length ? Math.max(...ids) : 0;
@@ -28,15 +41,10 @@ export const MarkersProvider = ({children}: any) => {
 				center: event.lngLat,
 				image: currentImage,
 				name: currentName,
-				radius,
-				contoursMinutes: 10,
-				fillColor: "rgba(166, 204, 245, 0.8)",
-				fillOpacity: 0.1,
-				stroke: "rgba(166, 204, 245, 1)",
-				strokeWidth: 4,
-				strokeOpacity: 0.8,
-				routingProfile: "walking",
 				geometryType: "circle",
+				radius,
+				routingProfile: "walking",
+				contoursMinutes: 10,
 			};
 			setMarkers((prev: any) => ({ 
 				...prev, 
@@ -72,19 +80,6 @@ export const MarkersProvider = ({children}: any) => {
 			window.removeEventListener('keydown', handleKeyDown);
 		};
 	}, []);
-
-	const providers = [
-		{
-			name: "streets",
-			label: 'Streets', 
-			provider: "mapbox", 
-			source: 'composite',
-			layer: 'road', 
-			type: "LineString", 
-			columnName: "type", 
-			graphicType: "dots"
-		}
-	];
 
 	return (
 		<MarkersContext.Provider value={{

@@ -4,16 +4,11 @@ import { useContext, createContext } from 'react';
 // App imports
 import { fillProperties, filterGeometries, filterLines } from './helpers';
 
-// Context imports
-import { useGeo } from 'context/geo';
-
 const LayerContext: React.Context<any> = createContext(null);
 
 export const useLayer = () => useContext(LayerContext)
 
 export const LayerProvider = ({children}: any) => {
-	const { mapRef } = useGeo();
-
 	const getLayersBySource = (currentMap: any, sourceLayer: string) => {
 		return currentMap.getStyle()
 			.layers
@@ -21,18 +16,17 @@ export const LayerProvider = ({children}: any) => {
 			.map((layer: any) => layer.id);
 	}
 
-	const getFeaturesBySource = (currentSource: any) => {
-		const currentMap = mapRef.current;
+	const getFeaturesBySource = (currentMap: any, currentSource: any) => {
 		const layers = getLayersBySource(currentMap, currentSource);
 		const currentFeatures = currentMap.queryRenderedFeatures({ layers });
 		return currentFeatures;
 	}
 
-	const getGeojson = (boundary: any, source: string, geometryType: string) => {
+	const getGeojson = (currentMap: any, boundary: any, source: string, geometryType: string) => {
 		const fillProperty = fillProperties[geometryType] || 'fill-color';
 		const isLine = geometryType === 'LineString' || geometryType === 'MultiLineString';
 
-		const currentFeatures = getFeaturesBySource('road');
+		const currentFeatures = getFeaturesBySource(currentMap, 'road');
 
 		if (!isLine) {
 			const geomFeatures = filterGeometries(currentFeatures, boundary, source);

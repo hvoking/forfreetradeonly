@@ -1,37 +1,35 @@
-// App imports
-import { getStrokeLayer } from './stroke';
-import { getFillLayer } from './fill';
-
 // Third party imports
 import { Source, Layer } from 'react-map-gl/mapbox';
 
 export const Boundary = ({ marker, boundary }: any) => {
-  const { id, stroke, strokeWidth, strokeOpacity, fillColor, fillOpacity } = marker;
-  
-  const sourceId = `boundary-source-${id}`;
+  const { id } = marker;
 
   if (!boundary) return <></>
 
-  const fillId = `boundary-fill-${id}`;
-  const borderId = `boundary-stroke-${id}`;
+  const sourceId = `boundary-source-${id}`;
 
-  const fillLayer = getFillLayer(fillId, sourceId, fillColor, fillOpacity);
-  const borderLayer = getStrokeLayer(borderId, sourceId, stroke, strokeOpacity, strokeWidth);
+  const layer: any = {
+    id: `boundary-stroke-${id}`,
+    type: 'line',
+    source: sourceId,
+    paint: {
+      'line-width': 4,
+      'line-color': "rgba(166, 204, 245, 1)",
+      'line-opacity': 0.8,
+      'line-dasharray': [2, 2],
+    }
+  }
 
-  const layers: any = [ fillLayer, borderLayer ]
-    
-    return (
-      <Source 
-        key={sourceId} 
-        id={sourceId} 
-        type="geojson" 
-        data={boundary}
-      >
-        {layers.map((currentLayer: any) => 
-          <Layer key={currentLayer.id} {...currentLayer}/>)
-      }
-      </Source>
-    )
+  return (
+    <Source 
+      key={sourceId} 
+      id={sourceId} 
+      type="geojson" 
+      data={boundary}
+    >
+      <Layer {...layer}/>
+    </Source>
+  )
 }
 
 Boundary.displayName="Boundary";

@@ -9,9 +9,6 @@ import './styles.scss';
 // Context imports
 import { useMarkers } from 'context/data/markers';
 
-// Third-party imports
-import { Marker } from 'react-map-gl/mapbox';
-
 export const Tooltip = ({ markerId }: any) => {
   const { markers } = useMarkers();
   const [ activeFeature, setActiveFeature ] = useState<any>('circle');

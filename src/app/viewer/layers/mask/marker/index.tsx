@@ -13,24 +13,26 @@ import { useMarkers } from 'context/data/markers';
 import { Marker } from 'react-map-gl/mapbox';
 
 export const CustomMarker = ({ marker }: any) => {
-	const [ activeTrash, setActiveTrash ] = useState(false);
-	const [ dragging, setDragging ] = useState(false);
-
 	const { updateMarkers, rejectMarker } = useMarkers();
 	const { id, center, image, name } = marker;
 
+	const [ activeTrash, setActiveTrash ] = useState(false);
+	const [ dragging, setDragging ] = useState(false);
+	
 	const onClick = (e: any) => {
 		e.stopPropagation();
-		!dragging && setActiveTrash((prev: boolean) => !prev)
+		!dragging && setActiveTrash((prev: boolean) => !prev);
 	}
 
 	const onDragStart = (e: any) =>  {
 		updateMarkers(id, "center", e.lngLat);
-		setDragging(true)
+		setDragging(true);
+		setActiveTrash(false);
 	}
+	
 	const onDrag = (e: any) => updateMarkers(id, "center", e.lngLat);
 
-	const onDragEnd = (e: any) => setTimeout(() => setDragging(false), 0);
+	const onDragEnd = () => setTimeout(() => setDragging(false), 0);
 
 	return (
 		<Marker

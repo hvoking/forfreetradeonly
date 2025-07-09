@@ -6,7 +6,7 @@ import './styles.scss';
 export const Options = ({ activeFeature, currentMarker }: any) => {
 	if (!activeFeature) return <></>;
 
-	const { id, radius, contoursMinutes, fillOpacity, strokeWidth, strokeOpacity } = currentMarker;
+	const { id, radius, contoursMinutes } = currentMarker;
 	
 	return (
 		<div className="options-wrapper">
