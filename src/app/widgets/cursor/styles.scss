@@ -1,12 +1,6 @@
-.map-pin-wrapper {
-    justify-self: center;
-    align-self: center;
-}
-.maps-go-circle {
-    width: 42px;
-    height: 42px;
-}
-.maps-custom-cursor {
+.custom-cursor {
+    width: 45px;
+    height: 45px;
     position: fixed;
     transform: translateY(-15px);
     pointer-events: none;
