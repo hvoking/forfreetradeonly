@@ -1,5 +1,5 @@
 // App imports
-import { Selector } from './selector';
+import { Grid } from './grid';
 
 export const Basemaps = () => {
 	return (
@@ -8,7 +8,7 @@ export const Basemaps = () => {
 			<p className="instructions">
 				Choose an basemap from the options below.
 			</p>
-			<Selector/>
+			<Grid/>
 		</div>
 	)
 }
