@@ -2,6 +2,7 @@
 import { Sidebar } from './sidebar'; 
 import { Sections } from './sections';
 import { Maps } from './maps';
+import { Helpers } from './helpers';
 import './styles.scss';
 
 // Context imports
@@ -23,6 +24,7 @@ export const App = () => {
         <div className="layout">
           <Sections/>
           <Maps/>
+          <Helpers/>
         </div>
       </div>
     </ContextProvider>

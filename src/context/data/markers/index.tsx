@@ -1,9 +1,6 @@
 // React imports
 import { useState, useEffect, useContext, createContext } from 'react';
 
-// App imports
-import { providers, colorPalette } from './data';
-
 const MarkersContext: React.Context<any> = createContext(null);
 
 export const useMarkers = () => useContext(MarkersContext)
@@ -76,6 +73,19 @@ export const MarkersProvider = ({children}: any) => {
 		};
 	}, []);
 
+	const providers = [
+		{
+			name: "streets",
+			label: 'Streets', 
+			provider: "mapbox", 
+			source: 'composite',
+			layer: 'road', 
+			type: "LineString", 
+			columnName: "type", 
+			graphicType: "dots"
+		}
+	];
+
 	return (
 		<MarkersContext.Provider value={{
 			markers, setMarkers,
@@ -86,7 +96,7 @@ export const MarkersProvider = ({children}: any) => {
 			activePage, setActivePage,
 			radius, setRadius,
 			addPin, setAddPin,
-			providers, colorPalette,
+			providers,
 		}}>
 			{children}
 		</MarkersContext.Provider>
