@@ -3,7 +3,7 @@ import { Location } from './location';
 import { Cursor } from './cursor';
 import { Search } from './search';
 
-export const Helpers = () => {
+export const Widgets = () => {
   return (
     <>
       <Location/>
@@ -13,4 +13,4 @@ export const Helpers = () => {
   )
 }
 
-Helpers.displayName="Helpers";
+Widgets.displayName="Widgets";
