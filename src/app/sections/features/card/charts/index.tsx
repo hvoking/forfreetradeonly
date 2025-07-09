@@ -11,7 +11,7 @@ import './styles.scss';
 // Third-party imports
 import * as d3 from 'd3';
 
-export const Charts = ({ data, name, colorLabel, backgroundColor }: any) => {
+export const Charts = ({ data, name, colorLabel }: any) => {
 	const [ graphictTypeIndex, setGraphicTypeIndex ] = useState(0);
 
 	const { distribution, colors } = processData(data, name, colorLabel);
@@ -32,7 +32,7 @@ export const Charts = ({ data, name, colorLabel, backgroundColor }: any) => {
 	}
 
 	return (
-			<div className="chart-wrapper" style={{backgroundColor: backgroundColor}} onClick={onClick}>
+			<div className="chart-wrapper" onClick={onClick}>
 				<Bars distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>
 				{graphicType === "gauge" && <Gauge distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>}
 				{graphicType === "dots" && <Dots distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>}

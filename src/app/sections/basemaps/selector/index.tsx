@@ -1,3 +1,6 @@
+// App imports
+import './styles.scss'
+
 // Context imports
 import { useGeo } from 'context/geo';
 
@@ -32,7 +35,7 @@ export const Selector = () => {
 	const { setMapStyle } = useGeo();
 
 	return (
-		<div className="thumbnail-container">
+		<div className="thumbnail-wrapper">
 			{basemapsArray.map((item, index) => {
 			  const [[name, { img, url }]] = Object.entries(item);
 			  return (

@@ -12,7 +12,7 @@
   display: grid;
   justify-items: center;
   background-color: $grid-bg;
-  border: 1px solid $border-color;
+  border: $border;
   padding: 5px;
   cursor: pointer;
   img {

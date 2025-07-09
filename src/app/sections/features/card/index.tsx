@@ -17,14 +17,11 @@ export const Card = ({ marker }: any) => {
 	const { providers } = useMarkers();
 	const { getGeojsonProperties } = useGeojson();
 
-	const { id, name, fillColor, fillOpacity } = marker;
-
-	const markerColor = fillColor.replace("b", "ba").replace(")", `, ${fillOpacity})`)
+	const { id, name } = marker;
 
 	const linesData = getGeojsonProperties(`lines-source-${id}`);
 	const polygonsData = getGeojsonProperties(`polygons-source-${id}`);
 	const pointsData = getGeojsonProperties(`points-source-${id}`);
-	const clusterData = getGeojsonProperties(`cluster-source-${id}`);
 
 	const currentProvider = providers.find((item: any) => item.name === name);
 
@@ -32,12 +29,10 @@ export const Card = ({ marker }: any) => {
 
 	const isLine = currentType === "LineString";
 	const isPoint = currentType === 'Point';
-	const isCluster = currentType === 'Cluster';
 
 	const currentData = 
 		isLine ? linesData : 
 		isPoint ? pointsData : 
-		isCluster ? clusterData :
 		polygonsData;
 
 	const currentColor = 
@@ -58,7 +53,6 @@ export const Card = ({ marker }: any) => {
 					name={columnName} 
 					colorLabel={currentColor} 
 					graphicType={graphicType}
-					backgroundColor={markerColor}
 				/>
 			}
 			{activeCharts && <Footer provider={provider}/>}
