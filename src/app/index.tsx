@@ -1,5 +1,5 @@
 // App imports
-import { Sidebar } from './sidebar'; 
+import { Panel } from './panel'; 
 import { Sections } from './sections';
 import { Viewer } from './viewer';
 import { Widgets } from './widgets';
@@ -20,7 +20,7 @@ export const App = () => {
   return (
     <ContextProvider>
       <div className="App"> 
-        <Sidebar/>
+        <Panel/>
         <div className="layout">
           <Sections/>
           <Viewer/>

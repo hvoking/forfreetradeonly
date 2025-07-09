@@ -2,7 +2,7 @@
 import { Logo } from './logo';
 import { Menu } from './menu';
 
-export const Sidebar = () => {
+export const Panel = () => {
 	return (
 		<>
 			<Logo/>
@@ -11,4 +11,4 @@ export const Sidebar = () => {
 	)
 }
 
-Sidebar.displayName="Sidebar";
+Panel.displayName="Panel";
