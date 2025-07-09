@@ -13,7 +13,7 @@ export const Sections = () => {
 	if (!activePage) return null;
 
 	return (
-		<div className="topics">
+		<div className="sections">
 			{activePage === "agent" && <Agents/>}
 			{activePage === "features" && <Features/>}
 			{activePage === "basemaps" && <Basemaps/>}

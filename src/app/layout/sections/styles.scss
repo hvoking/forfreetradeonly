@@ -1,6 +1,6 @@
 @import 'global';
 
-.topics {
+.sections {
   position: absolute;
   left: 0;
   top: 0;
@@ -34,7 +34,7 @@
     background: $text-dark;
     justify-self: center;
   }
-  .topics {
+  .sections {
     min-height: 100vh;
     overflow-y: scroll;
     width: 100%;

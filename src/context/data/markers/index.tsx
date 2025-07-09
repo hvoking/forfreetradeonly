@@ -41,10 +41,10 @@ export const MarkersProvider = ({children}: any) => {
 				center: event.lngLat,
 				image: currentImage,
 				name: currentName,
-				geometryType: "circle",
 				radius,
-				routingProfile: "walking",
 				contoursMinutes: 10,
+				geometryType: "circle",
+				routingProfile: "walking",
 			};
 			setMarkers((prev: any) => ({ 
 				...prev, 
