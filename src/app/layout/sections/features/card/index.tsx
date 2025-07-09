@@ -47,7 +47,7 @@ export const Card = ({ marker }: any) => {
 		  		activeCharts={activeCharts} 
 		  		setActiveCharts={setActiveCharts}
 		  	/>
-			{activeCharts && 
+			{activeCharts && currentData &&
 				<Charts 
 					data={currentData} 
 					name={columnName} 
