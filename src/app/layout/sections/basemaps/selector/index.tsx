@@ -35,7 +35,7 @@ export const Selector = () => {
 	const { setMapStyle } = useGeo();
 
 	return (
-		<div className="thumbnail-wrapper">
+		<div className="agent-grid">
 			{basemapsArray.map((item, index) => {
 			  const [[name, { img, url }]] = Object.entries(item);
 			  return (

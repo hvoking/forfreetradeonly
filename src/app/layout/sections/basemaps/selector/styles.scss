@@ -1,12 +1,5 @@
 @import 'global';
 
-.thumbnail-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 10px;
-  text-align: center;
-  padding-bottom: 20px;
-}
 .thumbnail {
   border-radius: 10px;
   border: $border;

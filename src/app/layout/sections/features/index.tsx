@@ -11,7 +11,7 @@ export const Features = () => {
   if (!(Object.keys(markers).length)) return <></>;
 
   return (
-    <div className="features-selection">
+    <div className="agent-selection">
       <h2>Agent Features</h2>
       <p className="instructions">
         Custom Data Visualizations
