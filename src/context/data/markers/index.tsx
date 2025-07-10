@@ -6,7 +6,8 @@ const MarkersContext: React.Context<any> = createContext(null);
 export const useMarkers = () => useContext(MarkersContext)
 
 export const MarkersProvider = ({children}: any) => {
-	const [ markers, setMarkers ] = useState<any>({});
+	const [ markers, setMarkers ] = useState({});
+
 	const [ currentMarkerId, setCurrentMarkerId ] = useState<any>(null);
 	const [ currentImage, setCurrentImage ] = useState<any>(null);
 	const [ currentName, setCurrentName ] = useState<any>(null);
@@ -54,12 +55,12 @@ export const MarkersProvider = ({children}: any) => {
 		}
 	};
 
-	const updateMarkers = (markerId: string, property: string, value: number) => {
+	const updateMarkers = (markerId: string, propertyKey: string, propertyValue: number) => {
 	    setMarkers((prev: any) => ({
 	        ...prev,
 	        [markerId]: {
 	            ...prev[markerId],
-	            [property]: value,
+	            [propertyKey]: propertyValue,
 	        },
 	    }));
 	};

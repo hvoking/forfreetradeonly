@@ -6,10 +6,11 @@ import { useMarkers } from 'context/data/markers';
 
 export const Layers = () => {
 	const { markers } = useMarkers();
-
+	const entries = Object.entries(markers);
+	
 	return (
 		<>
-			{Object.entries(markers).map(([ key, value ]: any) => 
+			{entries.map(([ key, value ]: any) => 
 				<Mask key={key} marker={value}/>
 			)}
 		</>

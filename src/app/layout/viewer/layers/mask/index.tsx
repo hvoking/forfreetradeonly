@@ -22,12 +22,10 @@ export const Mask = ({ marker }: any) => {
 
   useEffect(() => {
     const fetchBoundary = async (marker: any) => {
-      // call api for creating isochrone boundary
       if (geometryType === 'iso') {
         const data = await fetchIsochrone(marker);
         setBoundary(data.features[0]);
       } 
-      // create a circle as boundary
       else {
         const circle = turf.circle([ lng, lat ], radius);
         setBoundary(circle);

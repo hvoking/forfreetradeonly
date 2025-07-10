@@ -11,8 +11,8 @@ export const Wrapper = ({
     markerId, markerProperty,
     xScale, minBound, maxBound,
     innerWidth, innerHeight, 
-    handlerPosition, setHandlerPosition,
-    setActiveForeground
+    setHandlerPosition
+    
 }: any) => {
     const { updateMarkers } = useMarkers();
 
@@ -22,7 +22,11 @@ export const Wrapper = ({
             x < minBound ? minBound : 
             x > maxBound ? maxBound :  
             x;
-        const roundedX = maxBound <= 1 ? Math.round(boundedX * 10) / 10 : Math.round(boundedX);
+        const roundedX = 
+            maxBound <= 1 ? 
+            Math.round(boundedX * 10) / 10 : 
+            Math.round(boundedX);
+
         setHandlerPosition(roundedX);
     };
 
@@ -33,7 +37,11 @@ export const Wrapper = ({
             x > maxBound ? maxBound :  
             x;
 
-        const roundedX = maxBound <= 1 ? Math.round(boundedX * 10) / 10 : Math.round(boundedX);
+        const roundedX = 
+            maxBound <= 1 ? 
+            Math.round(boundedX * 10) / 10 : 
+            Math.round(boundedX);
+
         updateMarkers(markerId, markerProperty, roundedX);
     };
 
@@ -45,21 +53,12 @@ export const Wrapper = ({
         d3.select(node).call(drag);
     }, []);
 
-    const onMouseOver = () => {
-        setActiveForeground(true);
-    }
-    const onMouseLeave = () => {
-        setActiveForeground(false);
-    }
-
 	return (
         <rect
             ref={sliderRef}
             width={innerWidth}
             height={innerHeight}
             fill="transparent"
-            onMouseOver={onMouseOver}
-            onMouseLeave={onMouseLeave}
         />
 	)
 }

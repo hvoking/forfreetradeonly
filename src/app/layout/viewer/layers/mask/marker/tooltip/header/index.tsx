@@ -4,19 +4,18 @@ import './styles.scss';
 // Context imports
 import { useMarkers } from 'context/data/markers';
 
-export const Header = ({ markerId, activeFeature, setActiveFeature }: any) => {
+export const Header = ({ marker }: any) => {
 	const { updateMarkers } = useMarkers();
 
+	const { geometryType, id } = marker;
+
 	const isActiveColor = (name: any) => 
-		activeFeature === name ? 
+		geometryType === name ? 
 		"rgba(52, 152, 219, 0.3)" : 
 		"rgba(255, 255, 255, 0)";
 
 	const onClick = (boundaryType: any) => {
-		setActiveFeature(boundaryType)
-		if (boundaryType === "circle" || boundaryType === "iso") {
-			updateMarkers(markerId, "geometryType", boundaryType);
-		}
+		updateMarkers(id, "geometryType", boundaryType);
 	}
 
 	const SectionItem = ({ name }: any) => {

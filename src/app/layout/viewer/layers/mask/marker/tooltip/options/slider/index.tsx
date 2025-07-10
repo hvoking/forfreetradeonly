@@ -18,7 +18,6 @@ import * as d3 from 'd3';
 
 export const Slider = ({ markerId, minBound, maxBound, markerProperty, title, initialState }: any) => {
   const [ handlerPosition, setHandlerPosition ] = useState(initialState);
-  const [ activeForeground, setActiveForeground ] = useState(false);
 
   const { innerWidth, innerHeight } = useRadiusSizes();
   
@@ -45,7 +44,6 @@ export const Slider = ({ markerId, minBound, maxBound, markerProperty, title, in
           handlerPosition={handlerPosition} 
           circleHeight={circleHeight}
           innerHeight={innerHeight}
-          activeForeground={activeForeground}
         />
         <Markers
           xScale={xScale} 
@@ -68,7 +66,6 @@ export const Slider = ({ markerId, minBound, maxBound, markerProperty, title, in
           setHandlerPosition={setHandlerPosition}
           minBound={minBound}
           maxBound={maxBound}
-          setActiveForeground={setActiveForeground}
           markerId={markerId}
           markerProperty={markerProperty}
         />

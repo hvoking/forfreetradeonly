@@ -69,7 +69,7 @@ export const CustomMarker = ({ marker }: any) => {
 			{activeTrash && 
 				<>
 					<Trash onClick={(e: any) => rejectMarker(e, id)} />
-					<Tooltip markerId={id} />
+					<Tooltip marker={marker} />
 				</>
 			}
 		</Marker>

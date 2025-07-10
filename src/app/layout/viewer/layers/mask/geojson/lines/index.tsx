@@ -7,9 +7,9 @@ import { useGeo } from 'context/geo';
 import { Source, Layer } from 'react-map-gl/mapbox';
 
 export const Lines = ({ boundary, source, markerId }: any) => {
-	const { upsertGeojsonProperties } = useGeojson();
-	const { getGeojson } = useLayer();
 	const { mapRef } = useGeo();
+	const { getGeojson } = useLayer();
+	const { upsertGeojsonProperties } = useGeojson();
 
 	const currentMap = mapRef.current;
 

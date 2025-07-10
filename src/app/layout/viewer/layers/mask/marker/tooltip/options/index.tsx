@@ -3,14 +3,12 @@ import { Slider } from './slider';
 import { Mobility } from './mobility';
 import './styles.scss';
 
-export const Options = ({ activeFeature, currentMarker }: any) => {
-	if (!activeFeature) return <></>;
-
-	const { id, radius, contoursMinutes } = currentMarker;
+export const Options = ({ marker }: any) => {
+	const { id, radius, contoursMinutes, geometryType } = marker;
 	
 	return (
 		<div className="options-wrapper">
-		  {activeFeature === "circle" && 
+		  {geometryType === "circle" && 
   				<Slider 
   					markerId={id} 
   					markerProperty='radius'
@@ -20,14 +18,14 @@ export const Options = ({ activeFeature, currentMarker }: any) => {
   					initialState={radius}
   				/>
   			}
-  			{activeFeature === "iso" && 
+  			{geometryType === "iso" && 
 	  			<>
 	  				<Mobility markerId={id}/>
 	  				<Slider 
-	  					markerId={id} 
+	  					markerId={id}
+	  					markerProperty={"contoursMinutes"} 
 	  					minBound={5} 
 	  					maxBound={15} 
-	  					markerProperty={"contoursMinutes"} 
 	  					title={"Minutes"}
 	  					initialState={contoursMinutes}
 	  				/>
