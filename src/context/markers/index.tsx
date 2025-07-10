@@ -5,8 +5,7 @@ import { useState, useEffect, useContext, createContext } from 'react';
 import { providers } from './data';
 
 // Context imports
-import { useLayer } from 'context/data/layer';
-import { useMapboxIsochroneApi } from 'context/mapbox/isochrone';
+import { useLayer } from 'context/layer';
 
 // Third-party imports
 import * as turf from '@turf/turf';
@@ -17,7 +16,6 @@ export const useMarkers = () => useContext(MarkersContext)
 
 export const MarkersProvider = ({children}: any) => {
 	const { getGeojson } = useLayer();
-	const { fetchIsochrone } = useMapboxIsochroneApi();
 
 	const [ activePage, setActivePage ] = useState<any>(null);
 	const [ addPin, setAddPin ] = useState(false);
@@ -29,20 +27,6 @@ export const MarkersProvider = ({children}: any) => {
 	const [ currentName, setCurrentName ] = useState<any>(null);
 	const [ radius, setRadius ] = useState(0.5);
 
-	// Boundary properties	
-	const [ geometryType, setGeometryType ] = useState("circle");
-	const [ routingProfile, setRoutingProfile ] = useState("walking");
-
-	const fetchBoundary = async (center: any) => {
-		const isoProperties = { 
-			center, 
-			routingProfile, 
-			contoursMinutes: 15 
-		}
-		const isoData = await fetchIsochrone(isoProperties);
-		return isoData.features[0];
-	};
-
 	const getMarkerId = (markers: any) => {
 	    const ids = Object.keys(markers).map(Number);
 	    const maxId = ids.length ? Math.max(...ids) : 0;
@@ -51,11 +35,7 @@ export const MarkersProvider = ({children}: any) => {
 
     const addMarker = async (event: any) => {
     	const center = event.lngLat;
-
-        const boundary = 
-        	geometryType === "iso" ? 
-        	await fetchBoundary(center) : 
-        	turf.circle([ center.lng, center.lat ], 1);
+        const boundary = turf.circle([ center.lng, center.lat ], 0.5);
 
         const id = getMarkerId(markers);
         const data = getGeojson(boundary, 'LineString', 'road');
@@ -63,13 +43,13 @@ export const MarkersProvider = ({children}: any) => {
     	if (addPin === true) {
 			const newMarker = {
 				id,
-				center: event.lngLat,
+				center,
 				image: currentImage,
 				name: currentName,
 				radius,
 				contoursMinutes: 10,
-				geometryType,
-				routingProfile,
+				geometryType: "circle",
+				routingProfile: "walking",
 				data
 			};
 			setMarkers((prev: any) => ({ 

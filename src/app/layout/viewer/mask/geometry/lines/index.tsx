@@ -1,25 +1,12 @@
-// Context imports
-import { useLayer } from 'context/data/layer';
-import { useGeojson } from 'context/data/geojson';
-
 // Third-party imports
 import { Source, Layer } from 'react-map-gl/mapbox';
 
-export const Lines = ({ boundary, source, markerId }: any) => {
-	const { getGeojson } = useLayer();
-	const { upsertGeojsonProperties } = useGeojson();
+export const Lines = ({ source, marker }: any) => {
+	const { id, data } = marker;
 
-	const geoJsonData = getGeojson(boundary, 'LineString', 'road');
+	const sourceId = `lines-source-${id}`;
+	const layerId = `lines-layer-${id}`;
 
-	if (!geoJsonData) return <></>;
-
-	const sourceId = `lines-source-${markerId}`;
-	const layerId = `lines-layer-${markerId}`;
-
-	const geojsonProperties = geoJsonData.features.map((item: any) => item.properties)
-
-	upsertGeojsonProperties(sourceId, geojsonProperties);
-	
 	const layerStyle: any = {
 	  layerId,
 	  type: "line",
@@ -34,7 +21,7 @@ export const Lines = ({ boundary, source, markerId }: any) => {
 		<Source 
 		  id={sourceId} 
 		  type="geojson" 
-		  data={geoJsonData}
+		  data={data}
 		>
 		  <Layer {...layerStyle}/>
 		</Source>

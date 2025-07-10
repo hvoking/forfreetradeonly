@@ -7,7 +7,8 @@ export const Geometry = ({ boundary, marker }: any) => {
 	return (	
 		<Lines 
 			boundary={boundary} 
-			markerId={marker.id}
+			source='composite'
+			marker={marker}
 		/>
 	)
 }

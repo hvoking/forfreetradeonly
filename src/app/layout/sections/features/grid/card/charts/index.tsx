@@ -30,7 +30,6 @@ export const Charts = ({ data, name, colorLabel }: any) => {
 			}
 		})
 	}
-
 	return (
 			<div className="chart-wrapper" onClick={onClick}>
 				<Bars distribution={distribution} colors={colors} sumOfValues={sumOfValues}/>

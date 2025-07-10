@@ -10,9 +10,7 @@ export const Grid = () => {
 	return (
 		<div className="features-wrapper">
         {Object.entries(markers).map(([key, value]: any) => (
-          <div key={key}>
-            <Card marker={value}/>
-          </div>
+            <Card key={key} marker={value}/>
         ))}
       </div>
 	)

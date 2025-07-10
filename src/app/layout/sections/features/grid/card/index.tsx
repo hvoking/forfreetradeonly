@@ -7,38 +7,15 @@ import { Charts } from './charts';
 import { Footer } from './footer';
 import './styles.scss';
 
-// Context imports
-import { useMarkers } from 'context/markers';
-import { useGeojson } from 'context/data/geojson';
-
 export const Card = ({ marker }: any) => {
 	const [ activeCharts, setActiveCharts ] = useState(true);
 	
-	const { providers } = useMarkers();
-	const { getGeojsonProperties } = useGeojson();
+	const { id, data } = marker;
 
-	const { id, name } = marker;
-
-	const linesData = getGeojsonProperties(`lines-source-${id}`);
-	const polygonsData = getGeojsonProperties(`polygons-source-${id}`);
-	const pointsData = getGeojsonProperties(`points-source-${id}`);
-
-	const currentProvider = providers.find((item: any) => item.name === name);
-
-	const { type: currentType, columnName, graphicType, provider } = currentProvider;
-
-	const isLine = currentType === "LineString";
-	const isPoint = currentType === 'Point';
-
-	const currentData = 
-		isLine ? linesData : 
-		isPoint ? pointsData : 
-		polygonsData;
-
-	const currentColor = 
-		isLine ?  'line-color' : 
-		isPoint ? 'circle-color' :
-		'fill-color';
+	const provider = 'mapbox';
+	const columnName = 'type';
+	const graphicType = "dots";
+	const currentColor = 'line-color';
 
 	return (
 		<div key={id} className="agent-card">
@@ -47,9 +24,9 @@ export const Card = ({ marker }: any) => {
 		  		activeCharts={activeCharts} 
 		  		setActiveCharts={setActiveCharts}
 		  	/>
-			{activeCharts && currentData &&
+			{activeCharts && 
 				<Charts 
-					data={currentData} 
+					data={data} 
 					name={columnName} 
 					colorLabel={currentColor} 
 					graphicType={graphicType}
