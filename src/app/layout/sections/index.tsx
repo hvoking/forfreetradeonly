@@ -5,7 +5,7 @@ import { Basemaps } from './basemaps';
 import './styles.scss';
 
 // Context imports
-import { useMarkers } from 'context/data/markers';
+import { useMarkers } from 'context/markers';
 
 export const Sections = () => {
 	const { activePage } = useMarkers();

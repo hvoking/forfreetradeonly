@@ -1,33 +1,47 @@
 // React imports
 import { useState, useEffect, useContext, createContext } from 'react';
 
+// App imports
+import { providers } from './data';
+
+// Context imports
+import { useLayer } from 'context/data/layer';
+import { useMapboxIsochroneApi } from 'context/mapbox/isochrone';
+
+// Third-party imports
+import * as turf from '@turf/turf';
+
 const MarkersContext: React.Context<any> = createContext(null);
 
 export const useMarkers = () => useContext(MarkersContext)
 
 export const MarkersProvider = ({children}: any) => {
-	const [ markers, setMarkers ] = useState({});
+	const { getGeojson } = useLayer();
+	const { fetchIsochrone } = useMapboxIsochroneApi();
 
+	const [ activePage, setActivePage ] = useState<any>(null);
+	const [ addPin, setAddPin ] = useState(false);
+	
+	// markers properties	
+	const [ markers, setMarkers ] = useState({});
 	const [ currentMarkerId, setCurrentMarkerId ] = useState<any>(null);
 	const [ currentImage, setCurrentImage ] = useState<any>(null);
 	const [ currentName, setCurrentName ] = useState<any>(null);
-	const [ activePage, setActivePage ] = useState<any>(null);
-
 	const [ radius, setRadius ] = useState(0.5);
-	const [ addPin, setAddPin ] = useState(false);
 
-	const providers = [
-		{
-			name: "streets",
-			label: 'Streets', 
-			provider: "mapbox", 
-			source: 'composite',
-			layer: 'road', 
-			type: "LineString", 
-			columnName: "type", 
-			graphicType: "dots"
+	// Boundary properties	
+	const [ geometryType, setGeometryType ] = useState("circle");
+	const [ routingProfile, setRoutingProfile ] = useState("walking");
+
+	const fetchBoundary = async (center: any) => {
+		const isoProperties = { 
+			center, 
+			routingProfile, 
+			contoursMinutes: 15 
 		}
-	];
+		const isoData = await fetchIsochrone(isoProperties);
+		return isoData.features[0];
+	};
 
 	const getMarkerId = (markers: any) => {
 	    const ids = Object.keys(markers).map(Number);
@@ -35,17 +49,28 @@ export const MarkersProvider = ({children}: any) => {
 	    return maxId + 1;
 	};
 
-    const addMarker = (event: any) => {
+    const addMarker = async (event: any) => {
+    	const center = event.lngLat;
+
+        const boundary = 
+        	geometryType === "iso" ? 
+        	await fetchBoundary(center) : 
+        	turf.circle([ center.lng, center.lat ], 1);
+
+        const id = getMarkerId(markers);
+        const data = getGeojson(boundary, 'LineString', 'road');
+
     	if (addPin === true) {
 			const newMarker = {
-				id: getMarkerId(markers),
+				id,
 				center: event.lngLat,
 				image: currentImage,
 				name: currentName,
 				radius,
 				contoursMinutes: 10,
-				geometryType: "circle",
-				routingProfile: "walking",
+				geometryType,
+				routingProfile,
+				data
 			};
 			setMarkers((prev: any) => ({ 
 				...prev, 
@@ -71,7 +96,7 @@ export const MarkersProvider = ({children}: any) => {
 	        const { [markerId]: _, ...rest } = prev;
 	        return rest;
 	    });
-	}
+	};
 
 	useEffect(() => {
 		const handleKeyDown = (event: any) => event.keyCode === 27 && setAddPin(false);

@@ -2,7 +2,7 @@
 import { Card } from './card';
 
 // Context imports
-import { useMarkers } from 'context/data/markers';
+import { useMarkers } from 'context/markers';
 
 export const Grid = () => {
 	const { markers } = useMarkers();

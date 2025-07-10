@@ -7,7 +7,7 @@ import { Geolocate } from './geolocate';
 
 // Context imports
 import { useGeo } from 'context/geo';
-import { useMarkers } from 'context/data/markers';
+import { useMarkers } from 'context/markers';
 
 // Third-party imports
 import { Map } from 'react-map-gl/mapbox';

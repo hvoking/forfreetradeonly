@@ -7,7 +7,7 @@ import { Tooltip } from './tooltip';
 import { Trash } from './trash';
 
 // Context imports
-import { useMarkers } from 'context/data/markers';
+import { useMarkers } from 'context/markers';
 
 // Third-party imports
 import { Marker } from 'react-map-gl/mapbox';

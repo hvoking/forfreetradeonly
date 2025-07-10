@@ -4,29 +4,36 @@ import { useContext, createContext } from 'react';
 // App imports
 import { fillProperties, filterGeometries, filterLines } from './helpers';
 
+// Context imports
+import { useGeo } from 'context/geo';
+
 const LayerContext: React.Context<any> = createContext(null);
 
 export const useLayer = () => useContext(LayerContext)
 
-export const LayerProvider = ({children}: any) => {
-	const getLayersBySource = (currentMap: any, sourceLayer: string) => {
+export const LayerProvider = ({ children }: any) => {
+	const { mapRef } = useGeo();
+
+	const getLayersBySource = (sourceLayer: string) => {
+		const currentMap = mapRef.current;
 		return currentMap.getStyle()
 			.layers
 			.filter((layer: any) => layer['source-layer'] === sourceLayer)
 			.map((layer: any) => layer.id);
 	}
 
-	const getFeaturesBySource = (currentMap: any, currentSource: any) => {
-		const layers = getLayersBySource(currentMap, currentSource);
+	const getFeaturesBySource = (currentSource: any) => {
+		const currentMap = mapRef.current;
+		const layers = getLayersBySource(currentSource);
 		const currentFeatures = currentMap.queryRenderedFeatures({ layers });
 		return currentFeatures;
 	}
 
-	const getGeojson = (currentMap: any, boundary: any, geometryType: string) => {
+	const getGeojson = (boundary: any, geometryType: string, source: any) => {
 		const fillProperty = fillProperties[geometryType] || 'fill-color';
 		const isLine = geometryType === 'LineString' || geometryType === 'MultiLineString';
 
-		const currentFeatures = getFeaturesBySource(currentMap, 'road');
+		const currentFeatures = getFeaturesBySource(source);
 
 		if (!isLine) {
 			const geomFeatures = filterGeometries(currentFeatures, boundary);

@@ -6,7 +6,6 @@ const MapboxIsochroneApiContext: React.Context<any> = createContext(null)
 export const useMapboxIsochroneApi = () => useContext(MapboxIsochroneApiContext)
 
 export const MapboxIsochroneApiProvider = ({children}: any) => {
-
 	const fetchIsochrone = async ({ routingProfile, center, contoursMinutes }: any) => {
 		const { lng, lat } = center;
 
