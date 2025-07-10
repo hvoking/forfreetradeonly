@@ -19,12 +19,11 @@ export const Lines = ({ boundary, source, markerId }: any) => {
 	if (!geoJsonData) return <></>;
 
 	const sourceId = `lines-source-${markerId}`;
+	const layerId = `lines-layer-${markerId}`;
 
 	const geojsonProperties = geoJsonData.features.map((item: any) => item.properties)
 
 	upsertGeojsonProperties(sourceId, geojsonProperties);
-
-	const layerId = `lines-layer-${markerId}`;
 	
 	const layerStyle: any = {
 	  layerId,
