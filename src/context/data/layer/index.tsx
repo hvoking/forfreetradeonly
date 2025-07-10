@@ -22,18 +22,18 @@ export const LayerProvider = ({children}: any) => {
 		return currentFeatures;
 	}
 
-	const getGeojson = (currentMap: any, boundary: any, source: string, geometryType: string) => {
+	const getGeojson = (currentMap: any, boundary: any, geometryType: string) => {
 		const fillProperty = fillProperties[geometryType] || 'fill-color';
 		const isLine = geometryType === 'LineString' || geometryType === 'MultiLineString';
 
 		const currentFeatures = getFeaturesBySource(currentMap, 'road');
 
 		if (!isLine) {
-			const geomFeatures = filterGeometries(currentFeatures, boundary, source);
+			const geomFeatures = filterGeometries(currentFeatures, boundary);
 			return { type: 'FeatureCollection', features: geomFeatures }
 		}
 
-		const lineFeatures: any = filterLines(currentFeatures, boundary, source, fillProperty);
+		const lineFeatures: any = filterLines(currentFeatures, boundary, fillProperty);
 		const features = lineFeatures.filter((item: any) => Object.keys(item.properties).length !== 0);
 		return { type: 'FeatureCollection', features };
 	};

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 // App imports
 import { CustomMarker } from './marker';
 import { Boundary } from './boundary';
-import { Geojson } from './geojson';
+import { Geometry } from './geometry';
 
 // Context imports
 import { useMapboxIsochroneApi } from 'context/mapbox/isochrone';
@@ -32,12 +32,12 @@ export const Mask = ({ marker }: any) => {
       }
     };
     fetchBoundary(marker);
-  }, [ marker, fetchIsochrone ]);
+  }, [ marker ]);
 
   return (
     <div key={id}>
       <Boundary marker={marker} boundary={boundary}/>
-      <Geojson marker={marker} boundary={boundary}/>
+      <Geometry marker={marker} boundary={boundary}/>
       <CustomMarker marker={marker}/>
     </div>
   )

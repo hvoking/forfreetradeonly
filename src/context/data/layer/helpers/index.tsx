@@ -94,13 +94,11 @@ const getLinesInside = (lineFeatures: any[], boundary: any) => {
   });
 };
 
-export const filterLines = (mapFeatures: any[], boundary: any, source: string, fillProperty: any) => {
+export const filterLines = (mapFeatures: any[], boundary: any, fillProperty: any) => {
   if (!mapFeatures) return [];
 
   return mapFeatures.flatMap((item: any) => {
-    const { geometry, layer, source: src, properties: itemProperties } = item;
-
-    if (src !== source) return [];
+    const { geometry, layer, properties: itemProperties } = item;
 
     const color = getColor(itemProperties.type, layer.paint, fillProperty);
     const properties = { ...color, ...itemProperties };
@@ -111,8 +109,7 @@ export const filterLines = (mapFeatures: any[], boundary: any, source: string, f
   });
 };
 
-export const filterGeometries = (features: any[], boundary: any, source: string) =>
-  features.filter(({ source: src, geometry }) =>
-    src === source && 
+export const filterGeometries = (features: any[], boundary: any) =>
+  features.filter(({ geometry }) =>
     turf.booleanPointInPolygon(turf.centroid(geometry), boundary)
   );

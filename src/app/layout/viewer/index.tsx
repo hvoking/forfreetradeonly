@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // App imports
-import { Layers } from './layers';
+import { Mask } from './mask';
 import { Geolocate } from './geolocate';
 
 // Context imports
@@ -15,7 +15,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const Viewer = () => {
 	const { mapRef, viewport, mapStyle } = useGeo();
-	const { addMarker } = useMarkers();
+	const { addMarker, markers } = useMarkers();
 
 	const [ isMapLoaded, setIsMapLoaded ] = useState(false);
 
@@ -31,7 +31,10 @@ export const Viewer = () => {
 			onClick={onClick}
 			doubleClickZoom={false}
 		>
-			{isMapLoaded && <Layers/>}
+			{isMapLoaded && 
+				Object.entries(markers).map(([ key, value ]: any) => 
+					<Mask key={key} marker={value}/>
+			)}
 			<Geolocate/>
 		</Map>
 	)

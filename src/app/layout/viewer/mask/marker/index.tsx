@@ -2,9 +2,9 @@
 import { useState } from 'react';
 
 // App imports
+import { Icon } from './icon';
 import { Tooltip } from './tooltip';
 import { Trash } from './trash';
-import './styles.scss';
 
 // Context imports
 import { useMarkers } from 'context/data/markers';
@@ -19,11 +19,6 @@ export const CustomMarker = ({ marker }: any) => {
 	const [ activeTrash, setActiveTrash ] = useState(false);
 	const [ dragging, setDragging ] = useState(false);
 	const [ dragPosition, setDragPosition ] = useState<any>(null);
-	
-	const onClick = (e: any) => {
-		e.stopPropagation();
-		!dragging && setActiveTrash((prev: boolean) => !prev);
-	}
 
 	const onDragStart = (e: any) =>  {
 		setDragging(true);
@@ -45,6 +40,11 @@ export const CustomMarker = ({ marker }: any) => {
 		}
 	};
 
+	const onClick = (e: any) => {
+		e.stopPropagation();
+		!dragging && setActiveTrash((prev: boolean) => !prev);
+	}
+
 	return (
 		<Marker
 			key={id}
@@ -56,16 +56,7 @@ export const CustomMarker = ({ marker }: any) => {
 			onDrag={onDrag}
 			onDragEnd={onDragEnd}
 		>
-			<div className="custom-marker" onClick={onClick}>
-				<img 
-					src={image} 
-					alt="avatar"
-					className="agent-avatar"
-				/>
-				<div className="marker-provider">
-					{name}
-				</div>
-			</div>
+			<Icon name={name} image={image} onClick={onClick}/>
 			{activeTrash && 
 				<>
 					<Trash onClick={(e: any) => rejectMarker(e, id)} />

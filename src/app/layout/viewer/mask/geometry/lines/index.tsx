@@ -9,11 +9,12 @@ import { Source, Layer } from 'react-map-gl/mapbox';
 export const Lines = ({ boundary, source, markerId }: any) => {
 	const { mapRef } = useGeo();
 	const { getGeojson } = useLayer();
+
 	const { upsertGeojsonProperties } = useGeojson();
 
 	const currentMap = mapRef.current;
 
-	const geoJsonData = getGeojson(currentMap, boundary, source, 'LineString');
+	const geoJsonData = getGeojson(currentMap, boundary, 'LineString');
 
 	if (!geoJsonData) return <></>;
 

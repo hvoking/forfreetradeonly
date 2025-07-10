@@ -1,11 +1,5 @@
 @import 'global';
 
-.custom-marker {
-  position: relative;
-  cursor: pointer;
-  display: grid;
-  justify-items: center;
-}
 .marker-provider{
   background-color: $card-bg; 
   padding: 5px; 
@@ -18,12 +12,19 @@
   box-shadow: $box-shadow;
   font-size: 16px;
 }
+.agent-avatar {
+  width: 40px;
+}
+
+.custom-marker {
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  justify-items: center;
+}
 .custom-marker:hover {
   transform: scale(1.1);
 }
 .custom-marker:active {
   transform: scale(1.1);
-}
-.agent-avatar {
-  width: 40px;
 }

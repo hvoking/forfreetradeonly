@@ -9,7 +9,7 @@ const GeoContext: React.Context<any> = createContext(null);
 export const useGeo = () => useContext(GeoContext)
 
 export const GeoProvider = ({children}: any) => {
-	const mapRef = useRef<any>();
+	const mapRef = useRef<any>(null);
 
 	const [ placeId, setPlaceId ] = useState<any>(null);
 	const [ viewport, setViewport ] = useState(Locations.rotterdam);
