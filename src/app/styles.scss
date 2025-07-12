@@ -15,8 +15,8 @@ body {
 	grid-template-columns: min-content auto;
 	grid-template-rows: min-content auto;
 	grid-template-areas: 
-		"lg ly"
-		"me ly"
+		"lg cv"
+		"me cv"
 }
 .logo {
 	grid-area: lg;
@@ -24,8 +24,8 @@ body {
 .menu {
 	grid-area: me
 }
-.layout {
-	grid-area: ly;
+.canvas {
+	grid-area: cv;
 	position: relative;
 }
 @media screen and (max-width: 768px) {
@@ -34,7 +34,7 @@ body {
 		grid-template-rows: min-content auto min-content;
 		grid-template-areas: 
 			"lg"
-			"ly"
+			"cv"
 			"me";
 	}	
 }

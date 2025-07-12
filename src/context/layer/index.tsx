@@ -15,17 +15,15 @@ export const LayerProvider = ({ children }: any) => {
 	const { mapRef } = useGeo();
 
 	const getLayersBySource = (sourceLayer: string) => {
-		const currentMap = mapRef.current;
-		return currentMap.getStyle()
+		return mapRef.current.getStyle()
 			.layers
 			.filter((layer: any) => layer['source-layer'] === sourceLayer)
 			.map((layer: any) => layer.id);
 	}
 
 	const getFeaturesBySource = (currentSource: any) => {
-		const currentMap = mapRef.current;
 		const layers = getLayersBySource(currentSource);
-		const currentFeatures = currentMap.queryRenderedFeatures({ layers });
+		const currentFeatures = mapRef.current.queryRenderedFeatures({ layers });
 		return currentFeatures;
 	}
 

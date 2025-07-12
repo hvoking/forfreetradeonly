@@ -1,0 +1,25 @@
+@import 'global';
+
+.sections {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 4;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+  border-right: $border;
+}
+// mobile-style
+@media screen and (max-width: 768px) {
+  .sections {
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
+    width: 100%;
+    top: 0;
+  }
+}

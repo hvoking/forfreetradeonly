@@ -3,9 +3,9 @@ import { Sections } from './sections';
 import { Viewer } from './viewer';
 import { Widgets } from './widgets';
 
-export const Layout = () => {
+export const Canvas = () => {
 	return (
-		<div className="layout">
+		<div className="canvas">
           <Sections/>
           <Viewer/>
           <Widgets/>
@@ -13,4 +13,4 @@ export const Layout = () => {
 	)
 }
 
-Layout.displayName="Layout";
+Canvas.displayName="Canvas";

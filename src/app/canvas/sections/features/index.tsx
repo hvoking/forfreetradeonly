@@ -5,7 +5,7 @@ import './styles.scss';
 export const Features = () => {
   return (
     <div className="agent-selection">
-      <h2>Agent Features</h2>
+      <h2>Visible Features</h2>
       <p className="instructions">
         Custom Data Visualizations
       </p>
