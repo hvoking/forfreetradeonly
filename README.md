@@ -15,7 +15,7 @@ This project is an open-source. All the code and interface is created from scrat
 
 ## ✨ Key Features
 
-* **Global Support**: Explore any place worldwide.
+* **Global Support**: Explore worldwide.
 * **Interactive Map**: Simply click anywhere to instantly find the layers you want.
 * **Adjustable Boundaries**: Easily choose to display between circle and walking distances.
 * **Ultra-High Performance**: .
@@ -37,13 +37,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-repo/spider-map.git](https://github.com/your-repo/spider-map.git) # Replace with your actual repo URL
+    git clone [https://github.com/ugeom/geobots.xyz.git](https://github.com/ugeom/geobots.xyz.git)
     cd geobots
     ```
 
 2.  **Install Node dependencies:**
     ```bash
     yarn install
+    or 
+    npm install
     ```
 
 3.  **Open the map in your browser:**
@@ -52,9 +54,11 @@ These instructions will get you a copy of the project up and running on your loc
 ---
 
 ## 📂 Project Structure
+* `app` - The interactive web interface with frontend optimizations.
+    * `panel` - General Selectors.
+    * `canvas` - area displaying the map.
+* `context` - The ultra-fast NetworKit backend service. ⭐
 
-* `map.html` - The interactive web interface with frontend optimizations.
-* `walking_service.py` - The ultra-fast NetworKit backend service. ⭐
 * `download_data.py` - Script to download and build city network data.
 * `requirements.txt` - Lists all project dependencies.
 * `CityData/` - Directory containing network graphs and station data for all cities.
@@ -71,5 +75,5 @@ Contributions are welcome! If you have suggestions for improvements, new feature
 
 ## 👨‍💻 Created By
 
-**Gustavo Gonzalez - ugeom** - [ugeom.com](https://ugeom.com)  
-Architect [Urban Geometry](https://ugeom.com)
+**Gustavo Gonzalez - Urban Geometry** - [ugeom.com](https://ugeom.com)  
+Architect and Urbanist [Urban Geometry] (https://ugeom.com)
